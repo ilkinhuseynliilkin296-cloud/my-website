@@ -2,33 +2,127 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 关键：开启手机端完美适配 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>全球商城 · 电商任务平台</title>
   <style>
     * {margin:0; padding:0; box-sizing:border-box; font-family:system-ui, -apple-system, sans-serif;}
-    body {background:linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color:white; min-height:100vh;}
-    header {display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:rgba(0,0,0,0.15);}
-    .logo {font-size:1.25rem; font-weight:700;}
-    .header-actions {display:flex; gap:1rem; align-items:center;}
-    select {padding:0.4rem 0.8rem; border-radius:6px; border:none; background:white; color:#1e3a8a; font-weight:500; cursor:pointer;}
-    .btn {padding:0.5rem 1.2rem; border-radius:6px; border:none; font-weight:600; cursor:pointer;}
-    .btn-login {background:white; color:#1e3a8a;}
-    .btn-register {background:#facc15; color:#1e3a8a;}
-    .hero {padding:3rem 2rem; text-align:center;}
-    .hero h1 {font-size:2.5rem; margin-bottom:1rem;}
-    .hero p {font-size:1.15rem; opacity:0.9; margin-bottom:2.5rem;}
-    .stats {display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:3rem;}
-    .stat-card {background:rgba(255,255,255,0.2); padding:1.5rem 2.5rem; border-radius:12px; backdrop-filter:blur(8px);}
-    .stat-label {font-size:0.95rem; opacity:0.8; margin-bottom:0.5rem;}
-    .stat-value {font-size:2rem; font-weight:700;}
-    .section {padding:2rem;}
-    .section h2 {text-align:center; margin-bottom:2rem;}
-    .grid {display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1.2rem; max-width:1000px; margin:0 auto;}
-    .grid-item {background:rgba(255,255,255,0.15); padding:1.2rem; border-radius:10px; text-align:center; font-weight:500;}
-    .grid-2 {display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:1rem; max-width:1000px; margin:0 auto;}
-    .grid-item-2 {background:rgba(255,255,255,0.12); padding:1rem; border-radius:8px; text-align:center;}
-    .contact {padding:2rem; text-align:center; background:rgba(0,0,0,0.15);}
-    .contact-links {margin-top:1rem; display:flex; justify-content:center; gap:2rem; flex-wrap:wrap;}
+    body {
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      color: white;
+      min-height: 100vh;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.2rem;
+      background: rgba(0,0,0,0.15);
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+    .logo {font-size: 1.15rem; font-weight: 700;}
+    .header-actions {
+      display: flex;
+      gap: 0.6rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    select {
+      padding: 0.4rem 0.6rem;
+      border-radius: 6px;
+      border: none;
+      background: white;
+      color: #1e3a8a;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+    .btn {
+      padding: 0.5rem 1rem;
+      border-radius: 6px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.95rem;
+      white-space: nowrap;
+    }
+    .btn-login {background: white; color: #1e3a8a;}
+    .btn-register {background: #facc15; color: #1e3a8a;}
+    .hero {padding: 2rem 1rem; text-align: center;}
+    .hero h1 {
+      font-size: clamp(1.6rem, 5vw, 2.5rem);
+      margin-bottom: 0.8rem;
+    }
+    .hero p {
+      font-size: 1rem;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+      padding: 0 0.5rem;
+    }
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.2);
+      padding: 1.2rem 1.5rem;
+      border-radius: 12px;
+      backdrop-filter: blur(8px);
+      min-width: 140px;
+      flex: 1;
+      max-width: 220px;
+    }
+    .stat-label {font-size: 0.9rem; opacity: 0.8; margin-bottom: 0.4rem;}
+    .stat-value {font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700;}
+    .section {padding: 1.5rem 1rem;}
+    .section h2 {text-align: center; margin-bottom: 1.5rem; font-size: 1.3rem;}
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.8rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .grid-item {
+      background: rgba(255,255,255,0.15);
+      padding: 1rem;
+      border-radius: 10px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.8rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .grid-item-2 {
+      background: rgba(255,255,255,0.12);
+      padding: 0.9rem;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+    .contact {
+      padding: 1.5rem 1rem;
+      text-align: center;
+      background: rgba(0,0,0,0.15);
+    }
+    .contact-links {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+      flex-wrap: wrap;
+      font-size: 0.95rem;
+    }
+    a {text-decoration: none;}
   </style>
 </head>
 <body>
@@ -39,8 +133,8 @@
         <option value="zh">🇨🇳 中文</option>
         <option value="ru">🇷🇺 Русский</option>
       </select>
-      <button class="btn btn-login">登录账户</button>
-      <button class="btn btn-register">立即注册</button>
+      <a href="/login" style="text-decoration:none;"><button class="btn btn-login">登录账户</button></a>
+      <a href="/register" style="text-decoration:none;"><button class="btn btn-register">立即注册</button></a>
     </div>
   </header>
 
