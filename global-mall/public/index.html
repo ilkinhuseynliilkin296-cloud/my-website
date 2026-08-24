@@ -1,1 +1,244 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#FF6B00">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Global Mall - 全球购</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <!-- 登录页面 -->
+  <div id="page-login" class="page active">
+    <div class="login-container">
+      <div class="login-header">
+        <div class="logo">🌍 Global Mall</div>
+        <div class="slogan" data-i18n="slogan">全球好物，触手可及</div>
+      </div>
+      <div class="login-tabs">
+        <button class="login-tab active" data-tab="login" data-i18n="login">登录</button>
+        <button class="login-tab" data-tab="register" data-i18n="register">注册</button>
+      </div>
+      <div class="login-form" id="login-form">
+        <div class="form-group">
+          <input type="tel" id="login-phone" placeholder="手机号" class="form-input">
+        </div>
+        <div class="form-group">
+          <input type="password" id="login-password" placeholder="密码" class="form-input">
+        </div>
+        <button class="btn-primary btn-block" id="login-btn" data-i18n="loginBtn">登录</button>
+        <div class="login-error" id="login-error"></div>
+      </div>
+      <div class="login-form" id="register-form" style="display:none">
+        <div class="form-group">
+          <input type="tel" id="register-phone" placeholder="手机号" class="form-input">
+        </div>
+        <div class="form-group">
+          <input type="password" id="register-password" placeholder="密码" class="form-input">
+        </div>
+        <div class="form-group">
+          <input type="text" id="register-nickname" placeholder="昵称" class="form-input">
+        </div>
+        <div class="form-group">
+          <select id="register-country" class="form-input">
+            <option value="中国">🇨🇳 中国</option>
+            <option value="俄罗斯">🇷🇺 俄罗斯</option>
+            <option value="吉尔吉斯斯坦">🇰🇬 吉尔吉斯斯坦</option>
+            <option value="乌兹别克斯坦">🇺🇿 乌兹别克斯坦</option>
+            <option value="美国">🇺🇸 美国</option>
+            <option value="英国">🇬🇧 英国</option>
+            <option value="日本">🇯🇵 日本</option>
+            <option value="韩国">🇰🇷 韩国</option>
+          </select>
+        </div>
+        <button class="btn-primary btn-block" id="register-btn" data-i18n="registerBtn">注册</button>
+        <div class="login-error" id="register-error"></div>
+      </div>
+      <div class="login-footer">
+        <button class="lang-btn" data-lang="zh">中文</button>
+        <button class="lang-btn" data-lang="ru">Русский</button>
+        <button class="lang-btn" data-lang="ky">Кыргызча</button>
+        <button class="lang-btn" data-lang="uz">O'zbekcha</button>
+        <button class="lang-btn" data-lang="en">English</button>
+      </div>
+    </div>
+  </div>
 
+  <!-- 主应用页面 -->
+  <div id="page-app" class="page">
+    <!-- 顶部导航 -->
+    <header class="app-header">
+      <div class="header-left">
+        <span class="header-title">🌍 Global Mall</span>
+      </div>
+      <div class="header-right">
+        <button class="header-lang-btn" id="header-lang-btn">🌐</button>
+        <button class="header-notification">🔔</button>
+      </div>
+    </header>
+
+    <!-- 页面内容 -->
+    <main class="app-content" id="app-content">
+      <!-- 首页 -->
+      <section id="page-home" class="tab-page active">
+        <!-- 搜索 -->
+        <div class="search-bar">
+          <input type="text" id="search-input" placeholder="搜索商品..." class="search-input">
+          <button class="search-btn" id="search-btn">🔍</button>
+        </div>
+        <!-- 轮播图 -->
+        <div class="banner-slider" id="banner-slider">
+          <div class="banner-track" id="banner-track">
+            <div class="banner-item"><img src="https://picsum.photos/800/300?random=10" alt="banner1"></div>
+            <div class="banner-item"><img src="https://picsum.photos/800/300?random=11" alt="banner2"></div>
+            <div class="banner-item"><img src="https://picsum.photos/800/300?random=12" alt="banner3"></div>
+          </div>
+          <div class="banner-dots" id="banner-dots"></div>
+        </div>
+        <!-- 分类 -->
+        <div class="category-grid" id="category-grid">
+          <div class="category-item" data-category="电子产品">📱 电子产品</div>
+          <div class="category-item" data-category="运动服饰">👟 运动服饰</div>
+          <div class="category-item" data-category="家电">🏠 家电</div>
+          <div class="category-item" data-category="食品">🍜 食品</div>
+          <div class="category-item" data-category="美妆">💄 美妆</div>
+          <div class="category-item" data-category="母婴">👶 母婴</div>
+        </div>
+        <!-- 商品列表 -->
+        <div class="product-list" id="product-list">
+          <div class="section-header">
+            <span class="section-title" data-i18n="recommend">推荐商品</span>
+          </div>
+          <div class="product-grid" id="product-grid"></div>
+          <div class="load-more" id="load-more">
+            <button class="btn-outline" id="load-more-btn" data-i18n="loadMore">加载更多</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 商品详情 -->
+      <section id="page-detail" class="tab-page">
+        <div class="detail-back" id="detail-back">← 返回</div>
+        <div class="detail-container" id="detail-container">
+          <div class="detail-image"><img id="detail-img" src="" alt=""></div>
+          <div class="detail-info">
+            <h2 id="detail-title">商品名称</h2>
+            <div class="detail-price" id="detail-price">¥0.00</div>
+            <div class="detail-stock" id="detail-stock">库存: 0</div>
+            <div class="detail-commission" id="detail-commission">佣金: 0%</div>
+            <div class="detail-description" id="detail-desc">商品描述</div>
+            <div class="detail-actions">
+              <button class="btn-primary" id="detail-buy" data-i18n="buyNow">立即购买</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 订单 -->
+      <section id="page-orders" class="tab-page">
+        <div class="orders-header">
+          <h2 data-i18n="myOrders">我的订单</h2>
+        </div>
+        <div class="order-tabs">
+          <button class="order-tab active" data-status="all" data-i18n="all">全部</button>
+          <button class="order-tab" data-status="pending" data-i18n="pending">待付款</button>
+          <button class="order-tab" data-status="paid" data-i18n="paid">已付款</button>
+          <button class="order-tab" data-status="shipped" data-i18n="shipped">已发货</button>
+          <button class="order-tab" data-status="delivered" data-i18n="delivered">已完成</button>
+        </div>
+        <div class="order-list" id="order-list"></div>
+      </section>
+
+      <!-- 钱包 -->
+      <section id="page-wallet" class="tab-page">
+        <div class="wallet-header">
+          <div class="wallet-balance">
+            <div class="balance-label" data-i18n="balance">余额</div>
+            <div class="balance-amount" id="wallet-balance">¥0.00</div>
+          </div>
+          <div class="wallet-income">
+            <div class="income-label" data-i18n="totalIncome">总收益</div>
+            <div class="income-amount" id="wallet-income">¥0.00</div>
+          </div>
+        </div>
+        <div class="wallet-actions">
+          <button class="btn-primary" id="wallet-recharge" data-i18n="recharge">充值</button>
+          <button class="btn-outline" id="wallet-withdraw" data-i18n="withdraw">提现</button>
+        </div>
+        <div class="earnings-list" id="earnings-list">
+          <div class="section-header">
+            <span class="section-title" data-i18n="incomeRecords">收益记录</span>
+          </div>
+          <div id="earnings-items"></div>
+        </div>
+      </section>
+
+      <!-- 我的 -->
+      <section id="page-profile" class="tab-page">
+        <div class="profile-header">
+          <div class="profile-avatar" id="profile-avatar">👤</div>
+          <div class="profile-info">
+            <div class="profile-name" id="profile-name">用户</div>
+            <div class="profile-phone" id="profile-phone">138****0000</div>
+            <div class="profile-country" id="profile-country">中国</div>
+          </div>
+        </div>
+        <div class="profile-menu">
+          <div class="menu-item" id="profile-orders">
+            <span>📦</span>
+            <span data-i18n="myOrders">我的订单</span>
+            <span class="menu-arrow">›</span>
+          </div>
+          <div class="menu-item" id="profile-wallet">
+            <span>💰</span>
+            <span data-i18n="wallet">钱包</span>
+            <span class="menu-arrow">›</span>
+          </div>
+          <div class="menu-item" id="profile-commission">
+            <span>📊</span>
+            <span data-i18n="commission">佣金收益</span>
+            <span class="menu-arrow">›</span>
+          </div>
+          <div class="menu-item" id="profile-logout">
+            <span>🚪</span>
+            <span data-i18n="logout">退出登录</span>
+            <span class="menu-arrow">›</span>
+          </div>
+          <div class="menu-item" id="profile-admin" style="display:none">
+            <span>⚙️</span>
+            <span data-i18n="adminPanel">管理后台</span>
+            <span class="menu-arrow">›</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- 底部导航 -->
+    <nav class="bottom-nav" id="bottom-nav">
+      <button class="nav-item active" data-tab="home">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label" data-i18n="home">首页</span>
+      </button>
+      <button class="nav-item" data-tab="orders">
+        <span class="nav-icon">📦</span>
+        <span class="nav-label" data-i18n="orders">订单</span>
+      </button>
+      <button class="nav-item" data-tab="wallet">
+        <span class="nav-icon">💰</span>
+        <span class="nav-label" data-i18n="wallet">钱包</span>
+      </button>
+      <button class="nav-item" data-tab="profile">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label" data-i18n="profile">我的</span>
+      </button>
+    </nav>
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
