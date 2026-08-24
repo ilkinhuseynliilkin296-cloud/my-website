@@ -3,30 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>商城首页</title>
+  <title>首页</title>
   <style>
     * {margin:0; padding:0; box-sizing:border-box; font-family:"PingFang SC","Microsoft YaHei",sans-serif;}
     body {background:#F5F5F5; padding-bottom:60px;}
     a {text-decoration:none; color:inherit;}
+    select {-webkit-appearance:none; appearance:none;}
   </style>
 </head>
 <body>
 
   <!-- ======================================
-       🔝 顶部搜索栏
+       🔝 顶部橙色搜索栏（去掉1688字样）
        ====================================== -->
-  <div style="background:#FF6A00; padding:12px 16px; padding-top:40px;">
+  <div style="background:#FF6A00; padding:12px 16px; padding-top:30px;">
     <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
-      <div style="font-size:22px; font-weight:800; color:#fff;">1688</div>
       <div style="flex:1; background:#fff; border-radius:20px; padding:8px 14px; display:flex; align-items:center; gap:6px;">
         <span style="color:#999; font-size:14px;">🔍</span>
-        <input type="text" placeholder="搜索商品、店铺" style="border:none; outline:none; flex:1; font-size:14px; color:#333;">
+        <input type="text" placeholder="搜索商品、店铺" style="border:none; outline:none; flex:1; font-size:14px; color:#333; background:transparent;">
       </div>
       <span style="color:#fff; font-size:20px;">👤</span>
+      <span style="color:#fff; font-size:18px; margin-left:4px;">❤️</span>
     </div>
-
-    <!-- 分类标签：精选、按货、工业、筛选 -->
-    <div style="display:flex; gap:24px; color:#fff; font-size:15px; padding-bottom:4px;">
+    <!-- 分类标签 -->
+    <div style="display:flex; gap:20px; color:#fff; font-size:15px; padding-bottom:4px;">
       <span style="border-bottom:2px solid #fff; padding-bottom:4px; font-weight:600;">精选</span>
       <span>按货</span>
       <span>工业</span>
@@ -38,17 +38,17 @@
        🧭 功能入口 + 国家筛选
        ====================================== -->
   <div style="background:#fff; margin:10px 16px; border-radius:12px; padding:16px 10px;">
-    <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:12px; text-align:center; margin-bottom:14px;">
-      <div><div style="font-size:24px; margin-bottom:4px;">🔥</div><div style="font-size:12px; color:#333;">爆品推荐</div></div>
-      <div><div style="font-size:24px; margin-bottom:4px;">📦</div><div style="font-size:12px; color:#333;">全部分类</div></div>
-      <div><div style="font-size:24px; margin-bottom:4px;">🏷️</div><div style="font-size:12px; color:#333;">货源市场</div></div>
-      <div><div style="font-size:24px; margin-bottom:4px;">📊</div><div style="font-size:12px; color:#333;">行情分析</div></div>
-      <div><div style="font-size:24px; margin-bottom:4px;">🔍</div><div style="font-size:12px; color:#333;">搜索货源</div></div>
+    <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:8px; text-align:center; margin-bottom:14px;">
+      <div><div style="font-size:24px; margin-bottom:4px;">🔥</div><div style="font-size:11px; color:#333;">爆品推荐</div></div>
+      <div><div style="font-size:24px; margin-bottom:4px;">📦</div><div style="font-size:11px; color:#333;">全部分类</div></div>
+      <div><div style="font-size:24px; margin-bottom:4px;">🏷️</div><div style="font-size:11px; color:#333;">货源市场</div></div>
+      <div><div style="font-size:24px; margin-bottom:4px;">📊</div><div style="font-size:11px; color:#333;">行情分析</div></div>
+      <div><div style="font-size:24px; margin-bottom:4px;">🔍</div><div style="font-size:11px; color:#333;">搜索货源</div></div>
     </div>
     <!-- 国家筛选 -->
-    <div style="display:flex; gap:8px; align-items:center; padding-top:8px; border-top:1px solid #f5f5f5;">
+    <div style="display:flex; gap:6px; align-items:center; padding-top:10px; border-top:1px solid #f5f5f5;">
       <span style="font-size:13px; color:#666;">🌍 国家/地区：</span>
-      <select style="border:1px solid #eee; border-radius:6px; padding:4px 8px; font-size:13px; outline:none;">
+      <select style="border:1px solid #eee; border-radius:6px; padding:4px 10px; font-size:13px; outline:none; background:#fff; color:#333;">
         <option>全部国家</option>
         <option>中国</option>
         <option>俄罗斯</option>
@@ -58,98 +58,87 @@
   </div>
 
   <!-- ======================================
-       🔥 爆品推荐 · 一行3个（横向滑动）
+       🔥 爆品推荐 · 一行3个 与截图一致
        ====================================== -->
   <div style="padding:0 16px; margin-bottom:16px;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-      <span style="font-size:16px; font-weight:700; color:#FF6A00;">🔥 爆品推荐</span>
+      <span style="font-size:15px; font-weight:700; color:#333; display:flex; align-items:center; gap:4px;">🔥 爆品推荐</span>
       <span style="font-size:13px; color:#999;">查看更多 →</span>
     </div>
     <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px;">
-      <a href="#detail" style="background:#fff; border-radius:10px; overflow:hidden; display:block;">
-        <div style="height:100px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:40px;">👖</div>
-        <div style="padding:8px;">
-          <div style="font-size:15px; font-weight:700; color:#FF6A00;">¥26</div>
-        </div>
+      <a href="#detail" style="background:#fff; border-radius:10px; overflow:hidden; display:block; text-align:center; padding:15px 8px;">
+        <div style="font-size:40px; margin-bottom:10px;">👖</div>
+        <div style="font-size:15px; font-weight:700; color:#FF6A00;">¥26</div>
       </a>
-      <a href="#detail" style="background:#fff; border-radius:10px; overflow:hidden; display:block;">
-        <div style="height:100px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:40px;">👚</div>
-        <div style="padding:8px;">
-          <div style="font-size:15px; font-weight:700; color:#FF6A00;">¥30</div>
-        </div>
+      <a href="#detail" style="background:#fff; border-radius:10px; overflow:hidden; display:block; text-align:center; padding:15px 8px;">
+        <div style="font-size:40px; margin-bottom:10px;">👚</div>
+        <div style="font-size:15px; font-weight:700; color:#FF6A00;">¥30</div>
       </a>
-      <a href="#detail" style="background:#fff; border-radius:10px; overflow:hidden; display:block;">
-        <div style="height:100px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:40px;">🥿</div>
-        <div style="padding:8px;">
-          <div style="font-size:15px; font-weight:700; color:#FF6A00;">¥12</div>
-        </div>
+      <a href="#detail" style="background:#fff; border-radius:10px; overflow:hidden; display:block; text-align:center; padding:15px 8px;">
+        <div style="font-size:40px; margin-bottom:10px;">🥿</div>
+        <div style="font-size:15px; font-weight:700; color:#FF6A00;">¥12</div>
       </a>
     </div>
   </div>
 
   <!-- ======================================
-       📦 为您推荐 · 一行2个 完整信息
+       📦 为您推荐 · 一行2个 佣金+收藏+销量
        ====================================== -->
   <div style="padding:0 16px;">
-    <div style="font-size:16px; font-weight:700; color:#333; margin-bottom:10px;">为您推荐</div>
+    <div style="font-size:15px; font-weight:700; color:#333; margin-bottom:10px;">为您推荐</div>
     <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:12px;">
 
       <!-- 商品1 -->
-      <a href="#detail" style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid #f0f0f0; display:block;">
-        <div style="height:140px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:48px; position:relative;">
-          🧥
-          <span style="position:absolute; top:8px; right:8px; font-size:16px; color:#ccc;">❤️</span>
-          <span style="position:absolute; top:8px; left:8px; background:#FF6A00; color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">佣金12%</span>
-        </div>
+      <a href="#detail" style="background:#fff; border-radius:10px; overflow:hidden; display:block; position:relative;">
+        <div style="position:absolute; top:8px; left:8px; background:#FF6A00; color:#fff; font-size:11px; padding:2px 6px; border-radius:4px; z-index:2;">佣金12%</div>
+        <div style="position:absolute; top:8px; right:8px; font-size:16px; color:#ccc; z-index:2;">❤️</div>
+        <div style="height:130px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:44px;">🧥</div>
         <div style="padding:10px;">
           <div style="font-size:13px; color:#333; line-height:18px; height:36px; overflow:hidden;">运动休闲外套 防风透气春秋款</div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-            <span style="font-size:17px; font-weight:700; color:#FF6A00;">¥89.00</span>
+            <span style="font-size:16px; font-weight:700; color:#FF6A00;">¥89.00</span>
             <span style="font-size:11px; color:#999;">已售 2,580</span>
           </div>
         </div>
       </a>
 
       <!-- 商品2 -->
-      <a href="#detail" style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid #f0f0f0; display:block;">
-        <div style="height:140px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:48px;">🧥
-          <span style="position:absolute; top:8px; right:8px; font-size:16px; color:#ccc;">❤️</span>
-          <span style="position:absolute; top:8px; left:8px; background:#FF6A00; color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">佣金15%</span>
-        </div>
+      <a href="#detail" style="background:#fff; border-radius:10px; overflow:hidden; display:block; position:relative;">
+        <div style="position:absolute; top:8px; left:8px; background:#FF6A00; color:#fff; font-size:11px; padding:2px 6px; border-radius:4px; z-index:2;">佣金15%</div>
+        <div style="position:absolute; top:8px; right:8px; font-size:16px; color:#ccc; z-index:2;">❤️</div>
+        <div style="height:130px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:44px;">🧥</div>
         <div style="padding:10px;">
           <div style="font-size:13px; color:#333; line-height:18px; height:36px; overflow:hidden;">温柔风针织毛衣 软糯亲肤</div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-            <span style="font-size:17px; font-weight:700; color:#FF6A00;">¥58.00</span>
+            <span style="font-size:16px; font-weight:700; color:#FF6A00;">¥58.00</span>
             <span style="font-size:11px; color:#999;">已售 3,420</span>
           </div>
         </div>
       </a>
 
       <!-- 商品3 -->
-      <a href="#detail" style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid #f0f0f0; display:block;">
-        <div style="height:140px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:48px;">🧥
-          <span style="position:absolute; top:8px; right:8px; font-size:16px; color:#ccc;">❤️</span>
-          <span style="position:absolute; top:8px; left:8px; background:#FF6A00; color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">佣金10%</span>
-        </div>
+      <a href="#detail" style="background:#fff; border-radius:10px; overflow:hidden; display:block; position:relative;">
+        <div style="position:absolute; top:8px; left:8px; background:#FF6A00; color:#fff; font-size:11px; padding:2px 6px; border-radius:4px; z-index:2;">佣金10%</div>
+        <div style="position:absolute; top:8px; right:8px; font-size:16px; color:#ccc; z-index:2;">❤️</div>
+        <div style="height:130px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:44px;">🧥</div>
         <div style="padding:10px;">
           <div style="font-size:13px; color:#333; line-height:18px; height:36px; overflow:hidden;">加厚保暖羽绒服 防风抗寒</div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-            <span style="font-size:17px; font-weight:700; color:#FF6A00;">¥199.00</span>
+            <span style="font-size:16px; font-weight:700; color:#FF6A00;">¥199.00</span>
             <span style="font-size:11px; color:#999;">已售 1,865</span>
           </div>
         </div>
       </a>
 
       <!-- 商品4 -->
-      <a href="#detail" style="background:#fff; border-radius:12px; overflow:hidden; border:1px solid #f0f0f0; display:block;">
-        <div style="height:140px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:48px;">🔊
-          <span style="position:absolute; top:8px; right:8px; font-size:16px; color:#ccc;">❤️</span>
-          <span style="position:absolute; top:8px; left:8px; background:#FF6A00; color:#fff; font-size:11px; padding:2px 6px; border-radius:4px;">佣金12%</span>
-        </div>
+      <a href="#detail" style="background:#fff; border-radius:10px; overflow:hidden; display:block; position:relative;">
+        <div style="position:absolute; top:8px; left:8px; background:#FF6A00; color:#fff; font-size:11px; padding:2px 6px; border-radius:4px; z-index:2;">佣金12%</div>
+        <div style="position:absolute; top:8px; right:8px; font-size:16px; color:#ccc; z-index:2;">❤️</div>
+        <div style="height:130px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:44px;">🔊</div>
         <div style="padding:10px;">
           <div style="font-size:13px; color:#333; line-height:18px; height:36px; overflow:hidden;">智能蓝牙音箱 桌面低音炮</div>
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px;">
-            <span style="font-size:17px; font-weight:700; color:#FF6A00;">¥129.00</span>
+            <span style="font-size:16px; font-weight:700; color:#FF6A00;">¥129.00</span>
             <span style="font-size:11px; color:#999;">已售 4,200</span>
           </div>
         </div>
