@@ -6,7 +6,7 @@
   <title>我的 — 全球商家商城</title>
   <style>
     * {margin:0; padding:0; box-sizing:border-box; font-family:"PingFang SC","Microsoft YaHei",sans-serif; -webkit-tap-highlight-color:transparent;}
-    :root {--primary-start:#FF8A00; --primary-end:#FF6A00; --bg:#F5F5F5; --card:#fff; --text:#333; --text2:#888; --line:#eee;}
+    :root {--primary-start:#FF8A00; --primary-end:#FF6A00; --bronze:#CD7F32; --silver:#C0C0C0; --gold:#FFD700; --platinum:#E5E4E2; --diamond:#00BFFF; --bg:#F5F5F5; --card:#fff; --text:#333; --text2:#888; --line:#eee; --green:#52C41A; --pending:#FF9500;}
     html,body {background:var(--bg); max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:70px;}
     a {text-decoration:none; color:inherit; display:block;}
 
@@ -24,20 +24,48 @@
     .rank-diamond {background:linear-gradient(90deg, #00BFFF, #B0E2FF, #00BFFF); color:#004466;}
     .invite-line {font-size:13px; opacity:0.9;}
     .invite-code {background:rgba(255,255,255,0.2); padding:1px 8px; border-radius:10px; font-weight:600; display:inline-block; margin-left:6px;}
+    .setting-icon {font-size:22px; cursor:pointer; padding:4px;}
 
     /* 数据卡片：4项 */
-    .data-grid {display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:-16px 16px 16px; position:relative; z-index:1;}
+    .data-grid {display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:-16px 16px 12px; position:relative; z-index:1;}
     .data-card {background:#fff; border-radius:12px; padding:14px 8px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.06); cursor:pointer; transition:transform 0.15s;}
     .data-card:active {transform:scale(0.97);}
     .data-val {font-size:18px; font-weight:700; color:var(--primary-end); margin-bottom:4px;}
     .data-lab {font-size:11px; color:#666;}
 
+    /* 我的店铺 */
+    .section {margin:0 16px 12px; background:#fff; border-radius:12px; padding:16px; box-shadow:0 2px 6px rgba(0,0,0,0.04);}
+    .sec-title {font-size:15px; font-weight:600; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;}
+    .shop-status {display:flex; align-items:center; justify-content:space-between;}
+    .shop-name {font-size:14px; font-weight:500;}
+    .shop-tag {font-size:12px; padding:2px 10px; border-radius:12px; font-weight:500;}
+    .shop-open {background:#E8F8EF; color:var(--green);}
+    .shop-pending {background:#FFF7E8; color:var(--pending);}
+
+    /* 成长权益 */
+    .rank-top {display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+    .rank-name {font-size:16px; font-weight:700;}
+    .rank-exp {font-size:13px; color:#666;}
+    .progress-bar {height:8px; background:#eee; border-radius:4px; overflow:hidden; margin:8px 0;}
+    .progress-fill {height:100%; border-radius:4px; transition:width 0.5s ease;}
+    .exp-text {font-size:12px; color:#888; display:flex; justify-content:space-between; margin-bottom:4px;}
+    .rank-link {font-size:13px; color:var(--primary-end); text-align:right;}
+
+    /* 最近活动 · 横向轮播 */
+    .activity-wrap {overflow:hidden;}
+    .activity-list {display:flex; gap:10px; overflow-x:auto; padding-bottom:4px;}
+    .activity-card {flex:0 0 120px; background:linear-gradient(135deg,#FFF7E8,#FFEFD8); border-radius:10px; padding:14px 10px; cursor:pointer; transition:transform 0.15s;}
+    .activity-card:active {transform:scale(0.96);}
+    .activity-icon {font-size:24px; margin-bottom:6px;}
+    .activity-name {font-size:14px; font-weight:600; margin-bottom:4px; color:#8B4500;}
+    .activity-desc {font-size:11px; color:#A0722B; line-height:14px;}
+
     /* 菜单列表 */
-    .menu-section {margin:0 16px 20px; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.04);}
-    .menu-item {display:flex; align-items:center; padding:14px 16px; border-bottom:1px solid var(--line); cursor:pointer; transition:background 0.15s;}
+    .menu-section {margin:0 16px 12px; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 2px 6px rgba(0,0,0,0.04);}
+    .menu-item {display:flex; align-items:center; padding:13px 16px; border-bottom:1px solid #f8f8f8; cursor:pointer; transition:background 0.15s;}
     .menu-item:last-child {border-bottom:none;}
     .menu-item:active {background:#f9f9f9;}
-    .menu-icon {font-size:18px; margin-right:12px;}
+    .menu-icon {font-size:17px; margin-right:12px; width:20px; text-align:center;}
     .menu-name {flex:1; font-size:14px;}
     .menu-arrow {color:#ccc; font-size:12px;}
 
@@ -60,6 +88,7 @@
         <div class="rank-badge rank-bronze" id="rankBadge">🥉 铜牌</div>
         <div class="invite-line">邀请码：<span class="invite-code" id="inviteText">ALB202688</span></div>
       </div>
+      <div class="setting-icon" onclick="alert('进入设置页面')">⚙️</div>
     </div>
   </div>
 
@@ -83,7 +112,92 @@
     </div>
   </div>
 
-  <!-- 功能菜单 -->
+  <!-- 我的店铺 -->
+  <div class="section">
+    <div class="sec-title">🏪 我的店铺</div>
+    <div class="shop-status">
+      <span class="shop-name">全球商家旗舰店</span>
+      <span class="shop-tag shop-open">营业中</span>
+    </div>
+  </div>
+
+  <!-- 成长权益 -->
+  <div class="section">
+    <div class="sec-title">⭐ 成长权益</div>
+    <div class="rank-top">
+      <span class="rank-name" id="rankName">🥉 铜牌会员</span>
+      <span class="rank-exp" id="rankExp">经验值 860 / 2000</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="rankProgress" style="width:43%; background:linear-gradient(90deg, #CD7F32, #E09450);"></div>
+    </div>
+    <div class="exp-text">
+      <span>当前经验 860</span>
+      <span id="nextRankText">再邀请 1140 人晋升银牌</span>
+    </div>
+    <a href="#" class="rank-link" onclick="alert('查看全部等级权益详情')">查看全部权益 ›</a>
+  </div>
+
+  <!-- 最近活动 · 横向卡片轮播 -->
+  <div class="section">
+    <div class="sec-title">🔥 最近活动</div>
+    <div class="activity-wrap">
+      <div class="activity-list">
+        <div class="activity-card" onclick="alert('进入新人奖励详情页')">
+          <div class="activity-icon">🎁</div>
+          <div class="activity-name">新人奖励</div>
+          <div class="activity-desc">注册即送新手礼包</div>
+        </div>
+        <div class="activity-card" onclick="alert('进入双倍佣金详情页')">
+          <div class="activity-icon">💰</div>
+          <div class="activity-name">双倍佣金</div>
+          <div class="activity-desc">指定商品佣金翻倍</div>
+        </div>
+        <div class="activity-card" onclick="alert('进入邀请活动详情页')">
+          <div class="activity-icon">🤝</div>
+          <div class="activity-name">邀请活动</div>
+          <div class="activity-desc">邀请好友额外奖励</div>
+        </div>
+        <div class="activity-card" onclick="alert('进入官方公告详情页')">
+          <div class="activity-icon">📢</div>
+          <div class="activity-name">官方公告</div>
+          <div class="activity-desc">平台最新规则通知</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 安全中心 -->
+  <div class="menu-section">
+    <div class="sec-title" style="padding:16px 16px 0;">🔐 安全中心</div>
+    <div class="menu-item" onclick="alert('修改登录密码')">
+      <span class="menu-icon">🔑</span>
+      <span class="menu-name">登录密码</span>
+      <span class="menu-arrow">›</span>
+    </div>
+    <div class="menu-item" onclick="alert('设置/修改支付密码')">
+      <span class="menu-icon">🔒</span>
+      <span class="menu-name">支付密码</span>
+      <span class="menu-arrow">›</span>
+    </div>
+    <div class="menu-item" onclick="alert('绑定/验证 Google 验证器')">
+      <span class="menu-icon">🛡️</span>
+      <span class="menu-name">Google 验证</span>
+      <span class="menu-arrow">›</span>
+    </div>
+    <div class="menu-item" onclick="alert('查看登录设备列表与管理')">
+      <span class="menu-icon">📱</span>
+      <span class="menu-name">登录设备</span>
+      <span class="menu-arrow">›</span>
+    </div>
+    <div class="menu-item" onclick="alert('查看账户风险记录与处理')">
+      <span class="menu-icon">⚠️</span>
+      <span class="menu-name">风险记录</span>
+      <span class="menu-arrow">›</span>
+    </div>
+  </div>
+
+  <!-- 原有功能菜单（保留不新增模块） -->
   <div class="menu-section">
     <div class="menu-item" onclick="alert('进入实名认证页面')">
       <span class="menu-icon">✅</span>
@@ -142,28 +256,63 @@
   </div>
 
   <script>
-    // ========== UID与邀请码：每个人不同，直接改下面即可 ==========
-    const USER_UID = '88652310';      // ← 每个人的UID
-    const USER_INVITE = 'ALB202688';  // ← 每个人的邀请码
+    // ========== UID与邀请码 ==========
+    const USER_UID = '88652310';
+    const USER_INVITE = 'ALB202688';
     document.getElementById('uidText').textContent = USER_UID;
     document.getElementById('inviteText').textContent = USER_INVITE;
 
-    // ========== 等级徽章：与首页保持一致，1铜牌 2银牌 3金牌 4白金 5钻石 ==========
-    function setRank(level){
+    // ========== 成长等级配置 ==========
+    const RANKS = [
+      {level:1, name:'🥉 铜牌会员', expMin:0, expMax:2000, badge:'🥉 铜牌', cls:'rank-bronze', progressColor:'linear-gradient(90deg, #CD7F32, #E09450)'},
+      {level:2, name:'🥈 银牌会员', expMin:2000, expMax:5000, badge:'🥈 银牌', cls:'rank-silver', progressColor:'linear-gradient(90deg, #C0C0C0, #E8E8E8)'},
+      {level:3, name:'🥇 金牌会员', expMin:5000, expMax:15000, badge:'🥇 金牌', cls:'rank-gold', progressColor:'linear-gradient(90deg, #FFD700, #FFF3AC)'},
+      {level:4, name:'💠 白金会员', expMin:15000, expMax:50000, badge:'💠 白金', cls:'rank-platinum', progressColor:'linear-gradient(90deg, #E5E4E2, #F5F5F5)'},
+      {level:5, name:'💎 钻石会员', expMin:50000, expMax:999999, badge:'💎 钻石', cls:'rank-diamond', progressColor:'linear-gradient(90deg, #00BFFF, #B0E2FF)'}
+    ];
+
+    // ↓ 在这里修改当前经验值，自动计算等级与进度 ↓
+    const CURRENT_EXP = 860;
+
+    // ========== 自动计算等级与进度 ==========
+    function setRankByExp(exp){
       const badge = document.getElementById('rankBadge');
-      const configs = {
-        1: {text:'🥉 铜牌', cls:'rank-bronze'},
-        2: {text:'🥈 银牌', cls:'rank-silver'},
-        3: {text:'🥇 金牌', cls:'rank-gold'},
-        4: {text:'💠 白金', cls:'rank-platinum'},
-        5: {text:'💎 钻石', cls:'rank-diamond'}
-      };
-      const cfg = configs[level] || configs[1];
-      badge.className = 'rank-badge ' + cfg.cls;
-      badge.textContent = cfg.text;
+      const rankName = document.getElementById('rankName');
+      const rankExp = document.getElementById('rankExp');
+      const progressBar = document.getElementById('rankProgress');
+      const nextRankText = document.getElementById('nextRankText');
+
+      let currentRank = RANKS[0];
+      let nextRank = RANKS[1];
+      for(let i=0; i<RANKS.length; i++){
+        if(exp >= RANKS[i].expMin) currentRank = RANKS[i];
+        if(i+1 < RANKS.length && exp < RANKS[i+1].expMax) { nextRank = RANKS[i+1]; break; }
+        if(i === RANKS.length-1) { nextRank = null; }
+      }
+
+      // 更新徽章
+      badge.className = 'rank-badge ' + currentRank.cls;
+      badge.textContent = currentRank.badge;
+      rankName.textContent = currentRank.name;
+      rankExp.textContent = `经验值 ${exp} / ${currentRank.expMax}`;
+
+      // 进度条
+      const progress = ((exp - currentRank.expMin) / (currentRank.expMax - currentRank.expMin)) * 100;
+      progressBar.style.width = progress + '%';
+      progressBar.style.background = currentRank.progressColor;
+
+      // 下一等级提示
+      if(nextRank){
+        const needExp = nextRank.expMin - exp;
+        const needPeople = Math.ceil(needExp / 1); // 假设1经验=1人
+        nextRankText.textContent = `再邀请 ${needPeople} 人晋升${nextRank.badge.replace(/^./,'')}`;
+      } else {
+        nextRankText.textContent = '已达最高等级';
+      }
     }
-    // ↓ 等级请与首页保持一致 ↓
-    setRank(1);
+
+    // 初始化
+    setRankByExp(CURRENT_EXP);
   </script>
 </body>
 </html>
