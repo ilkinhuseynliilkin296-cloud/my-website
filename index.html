@@ -6,45 +6,66 @@
   <title>首页 — 全球商家商城</title>
   <style>
     * {margin:0; padding:0; box-sizing:border-box; font-family:"PingFang SC","Microsoft YaHei",sans-serif; -webkit-tap-highlight-color:transparent;}
-    :root {--primary:#FF6A00; --bg:#F5F5F5; --card:#fff; --text:#333; --text2:#888;}
+    :root {--primary:#FF6A00; --vip:#FFD700; --bg:#F5F5F5; --card:#fff; --text:#333; --text2:#888; --green:#52C41A;}
     html,body {background:var(--bg); max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:70px;}
     a {text-decoration:none; color:inherit; display:block;}
 
-    /* 头部 — 头像左、文字右、搜索栏在下，互不冲突 */
-    .header {background:linear-gradient(135deg,#FF6A00,#FF8A00); color:#fff; padding:30px 16px 40px; border-radius:0 0 24px 24px;}
+    /* 顶部头部：头像+会员+数据+消息 */
+    .header {background:linear-gradient(135deg,#FF6A00,#FF8A00); color:#fff; padding:30px 16px 20px; border-radius:0 0 24px 24px;}
     .header-top {display:flex; align-items:center; gap:12px; margin-bottom:16px;}
-    .avatar {width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:22px; border:2px solid #fff; flex-shrink:0;}
-    .header-text {flex:1;}
-    .welcome {font-size:20px; font-weight:700;}
-    .date {font-size:13px; opacity:0.8; margin-top:4px;}
-    .search-bar {background:#fff; border-radius:24px; padding:10px 16px; display:flex; align-items:center; gap:8px;}
-    .search-bar input {border:none; outline:none; flex:1; font-size:15px; color:#333;}
+    .avatar {width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:26px; border:2px solid #fff; flex-shrink:0;}
+    .user-info {flex:1;}
+    .vip-tag {display:inline-block; background:linear-gradient(90deg,#FFD700,#FFA500); color:#8B4500; font-size:12px; font-weight:700; padding:1px 10px; border-radius:12px; margin-bottom:4px;}
+    .user-name {font-size:15px; font-weight:500;}
+    .msg-icon {font-size:22px; cursor:pointer;}
 
-    .data-card {margin:-20px 16px 16px; background:#fff; border-radius:12px; padding:16px; box-shadow:0 4px 12px rgba(255,106,0,0.12); position:relative; z-index:1;}
-    .data-row {display:flex; text-align:center;}
-    .data-item {flex:1;}
-    .data-num {font-size:22px; font-weight:700; color:var(--primary);}
-    .data-label {font-size:13px; color:var(--text2); margin-top:4px;}
+    /* 数据卡片：今日收益 / 钱包余额 */
+    .data-row {display:flex; gap:12px; margin-bottom:16px;}
+    .data-card {flex:1; background:rgba(255,255,255,0.18); border-radius:12px; padding:10px 12px;}
+    .data-label {font-size:12px; opacity:0.9;}
+    .data-val {font-size:18px; font-weight:700; margin-top:4px;}
 
-    .notice {margin:0 16px 16px; background:#FFF7E8; border-radius:8px; padding:10px 14px; font-size:13px; color:#8B4500; display:flex; align-items:center; gap:8px;}
+    /* 轮播图 */
+    .banner {margin:0 16px; border-radius:12px; overflow:hidden; position:relative; height:140px; background:#eee;}
+    .banner-img {width:100%; height:100%; object-fit:cover; display:flex; align-items:center; justify-content:center; font-size:40px; color:#999;}
+    .banner-dots {position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:6px;}
+    .dot {width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.4);}
+    .dot.active {background:#fff; width:18px; border-radius:4px;}
 
+    /* 平台公告滚动 */
+    .notice {margin:12px 16px; background:#FFF7E8; border-radius:8px; padding:8px 12px; display:flex; align-items:center; gap:8px; overflow:hidden;}
+    .notice-icon {color:#FF8A00; flex-shrink:0;}
+    .notice-text {flex:1; font-size:13px; color:#8B4500; white-space:nowrap; overflow:hidden;}
+    .notice-text span {display:inline-block; animation:scroll 15s linear infinite; white-space:nowrap;}
+    @keyframes scroll {from{transform:translateX(100%);} to{transform:translateX(-100%);}}
+
+    /* 快捷入口四宫格 */
     .section {padding:0 16px; margin-bottom:20px;}
-    .sec-title {font-size:16px; font-weight:600; margin-bottom:12px; display:flex; justify-content:space-between;}
-    .sec-title a {font-size:14px; color:var(--primary);}
-
+    .sec-title {font-size:16px; font-weight:600; margin-bottom:12px;}
     .grid4 {display:grid; grid-template-columns:repeat(4,1fr); gap:12px;}
-    .func-item {background:#fff; border-radius:10px; padding:14px 8px; text-align:center; cursor:pointer;}
-    .func-icon {font-size:24px; margin-bottom:6px;}
-    .func-name {font-size:13px;}
+    .entry-item {background:#fff; border-radius:10px; padding:16px 8px; text-align:center; cursor:pointer; transition:transform 0.15s;}
+    .entry-item:active {transform:scale(0.96);}
+    .entry-icon {font-size:26px; margin-bottom:6px;}
+    .entry-name {font-size:13px;}
 
+    /* 推荐商品 */
     .pro-list {display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
     .pro-card {background:#fff; border-radius:10px; overflow:hidden; cursor:pointer;}
     .pro-img {width:100%; aspect-ratio:1; background:linear-gradient(135deg,#f5f5f5,#e8e8e8); display:flex; align-items:center; justify-content:center; font-size:40px; color:#ccc;}
     .pro-info {padding:10px;}
     .pro-name {font-size:13px; height:36px; line-height:18px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;}
-    .pro-price {font-size:16px; font-weight:700; color:var(--primary); margin-top:6px;}
+    .pro-price-row {display:flex; align-items:baseline; gap:6px; margin-top:6px;}
+    .pro-price {font-size:16px; font-weight:700; color:var(--primary);}
+    .pro-rate {font-size:11px; color:var(--green); background:rgba(82,196,26,0.1); padding:1px 4px; border-radius:4px;}
+    .pro-sold {font-size:11px; color:#aaa; margin-top:4px;}
 
-    /* 底部导航 — 高亮正常显示 */
+    /* 平台优势6宫格 */
+    .adv-grid {display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+    .adv-item {background:#fff; border-radius:10px; padding:14px 8px; text-align:center;}
+    .adv-icon {font-size:24px; margin-bottom:4px;}
+    .adv-name {font-size:12px; color:#555;}
+
+    /* 底部导航：首页高亮 */
     .tab-bar {position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; border-top:1px solid #eee; display:flex; padding:8px 0 10px; z-index:999;}
     .tab-item {flex:1; text-align:center; font-size:11px; color:#999; text-decoration:none;}
     .tab-item.active .tab-icon,
@@ -54,50 +75,111 @@
 </head>
 <body>
 
-  <!-- 头部：头像左+文字右，搜索栏在下 → 互不遮挡 -->
+  <!-- 顶部：头像+会员+数据+消息 -->
   <div class="header">
     <div class="header-top">
       <a href="mine.html" class="avatar">👤</a>
-      <div class="header-text">
-        <div class="welcome">欢迎回来 👋</div>
-        <div class="date" id="today"></div>
+      <div class="user-info">
+        <span class="vip-tag">VIP1</span>
+        <div class="user-name">尊敬的会员，欢迎您</div>
+      </div>
+      <div class="msg-icon" onclick="alert('查看消息通知')">🔔</div>
+    </div>
+    <div class="data-row">
+      <div class="data-card">
+        <div class="data-label">今日收益</div>
+        <div class="data-val">$1,258.68</div>
+      </div>
+      <div class="data-card" onclick="location.href='wallet.html'">
+        <div class="data-label">钱包余额</div>
+        <div class="data-val">$12,580.68</div>
       </div>
     </div>
-    <div class="search-bar">
-      <span>🔍</span>
-      <input type="text" placeholder="搜索商品、关键词...">
+  </div>
+
+  <!-- 轮播图：3张 自动轮播 -->
+  <div class="banner">
+    <div class="banner-img" id="bannerImg">🎉 新会员福利</div>
+    <div class="banner-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
     </div>
   </div>
 
-  <div class="data-card">
-    <div class="data-row">
-      <div class="data-item"><div class="data-num">$1,258.68</div><div class="data-label">今日收益</div></div>
-      <div class="data-item"><div class="data-num">$45,892.35</div><div class="data-label">累计佣金</div></div>
-      <div class="data-item"><div class="data-num">128</div><div class="data-label">有效订单</div></div>
+  <!-- 平台公告滚动 -->
+  <div class="notice">
+    <span class="notice-icon">📢</span>
+    <div class="notice-text">
+      <span>俄罗斯蜂蜜产地直供 · 新用户首单立减$10 · 限时7天！&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;平台结算升级 · 极速24小时到账 · 邀请好友最高享$20奖励！</span>
     </div>
   </div>
 
-  <div class="notice"><span>📢</span><span>俄罗斯蜂蜜到货 · 新用户首单立减$10 · 限时7天</span></div>
-
+  <!-- 快捷入口：四宫格 直接跳转 -->
   <div class="section">
-    <div class="sec-title">常用功能</div>
     <div class="grid4">
-      <a href="mall.html" class="func-item"><div class="func-icon">🛒</div><div class="func-name">去采购</div></a>
-      <a href="task.html" class="func-item"><div class="func-icon">📋</div><div class="func-name">任务中心</div></a>
-      <a href="wallet.html" class="func-item"><div class="func-icon">💰</div><div class="func-name">资金明细</div></a>
-      <a href="mine.html" class="func-item"><div class="func-icon">👤</div><div class="func-name">个人中心</div></a>
+      <a href="mall.html" class="entry-item">
+        <div class="entry-icon">🛒</div>
+        <div class="entry-name">商城</div>
+      </a>
+      <a href="task.html" class="entry-item">
+        <div class="entry-icon">📋</div>
+        <div class="entry-name">任务中心</div>
+      </a>
+      <a href="wallet.html" class="entry-item">
+        <div class="entry-icon">💰</div>
+        <div class="entry-name">钱包</div>
+      </a>
+      <a href="#" class="entry-item" onclick="alert('进入邀请页面，生成专属邀请链接')">
+        <div class="entry-icon">🤝</div>
+        <div class="entry-name">邀请好友</div>
+      </a>
     </div>
   </div>
 
+  <!-- 推荐商品：图片/名称/价格/佣金比例/已售 -->
   <div class="section">
-    <div class="sec-title">热门推荐 <a href="mall.html">查看更多 →</a></div>
+    <h2 class="sec-title">🔥 为您推荐</h2>
     <div class="pro-list">
-      <a href="#" class="pro-card"><div class="pro-img">🎧</div><div class="pro-info"><div class="pro-name">高端无线蓝牙耳机 降噪续航50小时</div><div class="pro-price">¥128.50</div></div></a>
-      <a href="#" class="pro-card"><div class="pro-img">🍯</div><div class="pro-info"><div class="pro-name">俄罗斯进口天然蜂蜜 1000g无污染</div><div class="pro-price">¥85.00</div></div></a>
+      <a href="#" class="pro-card" onclick="alert('进入商品详情页')">
+        <div class="pro-img">🎧</div>
+        <div class="pro-info">
+          <div class="pro-name">高端无线蓝牙耳机 降噪续航50小时</div>
+          <div class="pro-price-row">
+            <span class="pro-price">¥128.50</span>
+            <span class="pro-rate">佣12%</span>
+          </div>
+          <div class="pro-sold">已售 2,580 件</div>
+        </div>
+      </a>
+      <a href="#" class="pro-card" onclick="alert('进入商品详情页')">
+        <div class="pro-img">🍯</div>
+        <div class="pro-info">
+          <div class="pro-name">俄罗斯进口天然蜂蜜 1000g无污染</div>
+          <div class="pro-price-row">
+            <span class="pro-price">¥85.00</span>
+            <span class="pro-rate">佣15%</span>
+          </div>
+          <div class="pro-sold">已售 4,200 件</div>
+        </div>
+      </a>
     </div>
   </div>
 
-  <!-- 底部导航 → 首页高亮 -->
+  <!-- 平台优势：6个图标卡片 -->
+  <div class="section">
+    <h2 class="sec-title">✅ 平台优势</h2>
+    <div class="adv-grid">
+      <div class="adv-item"><div class="adv-icon">🌍</div><div class="adv-name">全球采购</div></div>
+      <div class="adv-item"><div class="adv-icon">🔒</div><div class="adv-name">安全支付</div></div>
+      <div class="adv-item"><div class="adv-icon">⚡</div><div class="adv-name">极速结算</div></div>
+      <div class="adv-item"><div class="adv-icon">🏅</div><div class="adv-name">官方认证</div></div>
+      <div class="adv-item"><div class="adv-icon">🕒</div><div class="adv-name">24小时客服</div></div>
+      <div class="adv-item"><div class="adv-icon">🌐</div><div class="adv-name">多语言支持</div></div>
+    </div>
+  </div>
+
+  <!-- 底部导航：首页高亮 -->
   <div class="tab-bar">
     <a href="index.html" class="tab-item active">
       <span class="tab-icon">🏠</span>
@@ -122,9 +204,16 @@
   </div>
 
   <script>
-    // 显示日期
-    const d = new Date();
-    document.getElementById('today').textContent = `${d.getFullYear()}年${String(d.getMonth()+1).padStart(2,'0')}月${String(d.getDate()).padStart(2,'0')}日 星期${'日一二三四五六'[d.getDay()]}`;
+    // 简单轮播 3张图
+    const banners = ['🎉 新会员福利', '🍯 俄罗斯蜂蜜直供', '🎁 邀请享高额奖励'];
+    const dots = document.querySelectorAll('.banner .dot');
+    const img = document.getElementById('bannerImg');
+    let idx = 0;
+    setInterval(() => {
+      idx = (idx + 1) % banners.length;
+      img.textContent = banners[idx];
+      dots.forEach((d,i)=>d.classList.toggle('active', i===idx));
+    }, 3000);
   </script>
 </body>
 </html>
