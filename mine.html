@@ -13,8 +13,9 @@
     /* 顶部：阿里橙商务风 */
     .header {background:linear-gradient(90deg, var(--primary-start), var(--primary-end)); color:#fff; padding:32px 16px 24px; border-radius:0 0 20px 20px;}
     .header-top {display:flex; align-items:center; gap:14px;}
-    .avatar {width:58px; height:58px; border-radius:50%; background:rgba(255,255,255,0.22); display:flex; align-items:center; justify-content:center; font-size:28px; border:2px solid #fff; flex-shrink:0; box-shadow:0 2px 6px rgba(0,0,0,0.08);}
-    .info-wrap {flex:1;}
+    /* ========== 头像：强化显示 ========== */
+    .avatar {width:58px; height:58px; border-radius:50%; background:#fff; display:flex; align-items:center; justify-content:center; font-size:28px; border:3px solid #fff; flex-shrink:0; box-shadow:0 2px 8px rgba(0,0,0,0.15); color:#FF6A00; font-weight:bold;}
+    .info-wrap {flex:1; min-width:0;}
     .uid-line {font-size:14px; opacity:0.9; margin-bottom:4px;}
     .rank-badge {display:inline-flex; align-items:center; gap:4px; font-size:12px; font-weight:600; padding:2px 12px; border-radius:20px; margin-bottom:6px; box-shadow:inset 0 1px 3px rgba(0,0,0,0.1);}
     .rank-bronze {background:linear-gradient(90deg, #CD7F32, #E09450, #CD7F32); color:#fff;}
@@ -82,6 +83,7 @@
   <!-- 顶部个人信息 -->
   <div class="header">
     <div class="header-top">
+      <!-- ========== 头像：确保可见 ========== -->
       <a href="mine.html" class="avatar">👤</a>
       <div class="info-wrap">
         <div class="uid-line">UID：<span id="uidText">88652310</span></div>
@@ -197,7 +199,7 @@
     </div>
   </div>
 
-  <!-- 原有功能菜单（保留不新增模块） -->
+  <!-- 原有功能菜单 -->
   <div class="menu-section">
     <div class="menu-item" onclick="alert('进入实名认证页面')">
       <span class="menu-icon">✅</span>
@@ -271,7 +273,7 @@
       {level:5, name:'💎 钻石会员', expMin:50000, expMax:999999, badge:'💎 钻石', cls:'rank-diamond', progressColor:'linear-gradient(90deg, #00BFFF, #B0E2FF)'}
     ];
 
-    // ↓ 在这里修改当前经验值，自动计算等级与进度 ↓
+    // ↓ 在这里修改当前经验值 ↓
     const CURRENT_EXP = 860;
 
     // ========== 自动计算等级与进度 ==========
@@ -290,28 +292,24 @@
         if(i === RANKS.length-1) { nextRank = null; }
       }
 
-      // 更新徽章
       badge.className = 'rank-badge ' + currentRank.cls;
       badge.textContent = currentRank.badge;
       rankName.textContent = currentRank.name;
       rankExp.textContent = `经验值 ${exp} / ${currentRank.expMax}`;
 
-      // 进度条
       const progress = ((exp - currentRank.expMin) / (currentRank.expMax - currentRank.expMin)) * 100;
       progressBar.style.width = progress + '%';
       progressBar.style.background = currentRank.progressColor;
 
-      // 下一等级提示
       if(nextRank){
         const needExp = nextRank.expMin - exp;
-        const needPeople = Math.ceil(needExp / 1); // 假设1经验=1人
+        const needPeople = Math.ceil(needExp / 1);
         nextRankText.textContent = `再邀请 ${needPeople} 人晋升${nextRank.badge.replace(/^./,'')}`;
       } else {
         nextRankText.textContent = '已达最高等级';
       }
     }
 
-    // 初始化
     setRankByExp(CURRENT_EXP);
   </script>
 </body>
