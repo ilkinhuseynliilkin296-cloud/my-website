@@ -1,132 +1,317 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>首页</title>
+<title>商城APP</title>
 <style>
-*{margin:0; padding:0; box-sizing:border-box; font-family:"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;}
-body{background:#f5f5f5; padding-bottom:55px; -webkit-overflow-scrolling:touch;}
+/* ===== 全局基础 ===== */
+*{margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+body{
+  font-family:"PingFang SC","Microsoft YaHei",-apple-system,Helvetica Neue,sans-serif;
+  background:#F5F5F5;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+}
+/* ===== 手机容器 固定宽度 ===== */
+.app-container{
+  width:410px;
+  max-width:430px;
+  min-width:390px;
+  background:#F5F5F5;
+  min-height:100vh;
+  position:relative;
+  padding-bottom:60px;
+  box-shadow:0 0 20px rgba(0,0,0,0.08);
+}
 a{text-decoration:none; color:inherit;}
-select{appearance:none; -webkit-appearance:none;}
+/* ===== 页面切换容器 ===== */
+.page{display:none; animation:fadeIn 0.2s ease;}
+.page.active{display:block;}
+@keyframes fadeIn{from{opacity:0;} to{opacity:1;}}
+/* ===== 顶部搜索栏 阿里橙 ===== */
+.top-bar{
+  background:#FF6A00;
+  padding:10px 14px;
+  padding-top:35px;
+}
+.search-row{
+  display:flex; align-items:center; gap:10px; margin-bottom:10px;
+}
+.search-input{
+  flex:1; border:none; border-radius:20px; padding:9px 15px; font-size:14px; outline:none; height:38px;
+}
+.search-icon, .user-icon, .fav-icon{color:#fff; font-size:19px; flex-shrink:0;}
+.tab-row{display:flex; color:#fff; font-size:15px; gap:24px;}
+.tab-row span{padding-bottom:4px; cursor:pointer;}
+.tab-row span.active{border-bottom:2px solid #fff; font-weight:600;}
+/* ===== 功能卡片 ===== */
+.func-card{
+  background:#fff; margin:10px 14px; border-radius:12px; padding:16px 10px;
+}
+.func-grid{
+  display:grid; grid-template-columns:repeat(5,1fr); gap:8px; text-align:center;
+}
+.func-item .icon{font-size:24px; margin-bottom:4px;}
+.func-item .name{font-size:11px; color:#333;}
+.filter-row{
+  margin-top:12px; padding-top:10px; border-top:1px solid #f5f5f5;
+  font-size:13px; color:#666; display:flex; align-items:center; gap:6px;
+}
+.filter-row select{
+  border:1px solid #eee; border-radius:6px; padding:4px 8px; font-size:13px; outline:none; background:#fff;
+}
+/* ===== 爆品推荐 ===== */
+.section{padding:0 14px; margin-bottom:16px;}
+.section-head{
+  display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;
+}
+.section-title{font-size:15px; font-weight:700; color:#333;}
+.more-link{font-size:13px; color:#999;}
+.hot-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px;}
+.hot-card{
+  background:#fff; border-radius:10px; text-align:center; padding:15px 5px; cursor:pointer;
+}
+.hot-card .icon{font-size:34px; margin-bottom:6px;}
+.hot-card .price{color:#FF6A00; font-weight:700; font-size:15px;}
+/* ===== 商品列表 一行2 ===== */
+.goods-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:12px;}
+.goods-card{
+  background:#fff; border-radius:10px; overflow:hidden; position:relative; cursor:pointer;
+}
+.tag-commission{
+  position:absolute; top:8px; left:8px; background:#FF6A00; color:#fff; font-size:11px; padding:2px 6px; border-radius:4px; z-index:2;
+}
+.tag-fav{
+  position:absolute; top:8px; right:8px; font-size:16px; color:#ccc; z-index:2;
+}
+.goods-img{
+  height:130px; background:#F8F8F8; display:flex; align-items:center; justify-content:center; font-size:40px;
+}
+.goods-info{padding:10px;}
+.goods-name{
+  font-size:13px; color:#333; height:36px; line-height:18px; overflow:hidden;
+}
+.goods-bottom{
+  display:flex; justify-content:space-between; align-items:center; margin-top:8px;
+}
+.goods-price{color:#FF6A00; font-weight:700; font-size:16px;}
+.goods-sold{font-size:11px; color:#999;}
+/* ===== 底部导航 ===== */
+.bottom-nav{
+  position:fixed; bottom:0; left:50%; transform:translateX(-50%);
+  width:410px; max-width:430px; min-width:390px;
+  background:#fff; border-top:1px solid #eee;
+  display:grid; grid-template-columns:repeat(5,1fr);
+  padding:5px 0; padding-bottom:10px; z-index:99;
+}
+.nav-item{
+  text-align:center; cursor:pointer;
+}
+.nav-item .icon{font-size:21px;}
+.nav-item .name{font-size:11px; margin-top:2px;}
+.nav-item.active{color:#FF6A00;}
+.nav-item:not(.active){color:#999;}
+/* ===== 占位页面 ===== */
+.placeholder-page{
+  padding:40px 20px; text-align:center; color:#666;
+}
 </style>
 </head>
 <body>
 
-<!-- 🔝 顶部搜索栏 -->
-<div style="background:#ff6a00; padding:10px 12px; padding-top:30px;">
-  <div style="display:flex; align-items:center; gap:8px;">
-    <input type="text" placeholder="搜索商品、店铺" style="flex:1; border:none; border-radius:20px; padding:8px 14px; font-size:14px; outline:none; height:36px;">
-    <span style="color:#fff; font-size:18px; flex-shrink:0;">👤</span>
-    <span style="color:#fff; font-size:16px; flex-shrink:0;">❤️</span>
-  </div>
-  <div style="display:flex; color:#fff; font-size:14px; margin-top:10px; gap:20px; align-items:center;">
-    <span style="border-bottom:2px solid #fff; padding-bottom:3px; font-weight:bold;">精选</span>
-    <span>按货</span>
-    <span>工业</span>
-    <span>筛选 ⚙️</span>
-  </div>
-</div>
+<div class="app-container">
 
-<!-- 🧭 功能入口 + 国家筛选 -->
-<div style="background:#fff; margin:10px 12px; border-radius:10px; padding:14px 8px;">
-  <div style="display:grid; grid-template-columns:repeat(5,1fr); text-align:center; gap:5px;">
-    <div><div style="font-size:22px;">🔥</div><div style="font-size:11px; margin-top:2px;">爆品推荐</div></div>
-    <div><div style="font-size:22px;">📦</div><div style="font-size:11px; margin-top:2px;">全部分类</div></div>
-    <div><div style="font-size:22px;">🏷️</div><div style="font-size:11px; margin-top:2px;">货源市场</div></div>
-    <div><div style="font-size:22px;">📊</div><div style="font-size:11px; margin-top:2px;">行情分析</div></div>
-    <div><div style="font-size:22px;">🔍</div><div style="font-size:11px; margin-top:2px;">搜索货源</div></div>
-  </div>
-  <div style="margin-top:12px; padding-top:10px; border-top:1px solid #f5f5f5; font-size:13px; color:#666;">
-    🌍 国家/地区：
-    <select style="border:1px solid #eee; padding:3px 6px; border-radius:5px; margin-left:4px; font-size:13px; background:#fff;">
-      <option>全部国家</option>
-      <option>中国</option>
-      <option>俄罗斯</option>
-      <option>吉尔吉斯斯坦</option>
-    </select>
-  </div>
-</div>
+  <!-- ===== 首页 ===== -->
+  <div id="page-home" class="page active">
+    <div class="top-bar">
+      <div class="search-row">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="搜索商品、店铺">
+        <span class="user-icon">👤</span>
+        <span class="fav-icon">❤️</span>
+      </div>
+      <div class="tab-row">
+        <span class="active">精选</span>
+        <span>按货</span>
+        <span>工业</span>
+        <span>筛选 ⚙️</span>
+      </div>
+    </div>
 
-<!-- 🔥 爆品推荐 一行3个 -->
-<div style="padding:0 12px; margin-bottom:15px;">
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-    <span style="font-size:15px; font-weight:bold;">🔥 爆品推荐</span>
-    <span style="font-size:13px; color:#999;">查看更多 →</span>
-  </div>
-  <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:10px;">
-    <a href="#" style="background:#fff; border-radius:8px; text-align:center; padding:15px 5px; display:block;">
-      <div style="font-size:32px; margin-bottom:8px;">👖</div>
-      <div style="color:#ff6a00; font-weight:bold; font-size:15px;">¥26</div>
-    </a>
-    <a href="#" style="background:#fff; border-radius:8px; text-align:center; padding:15px 5px; display:block;">
-      <div style="font-size:32px; margin-bottom:8px;">👚</div>
-      <div style="color:#ff6a00; font-weight:bold; font-size:15px;">¥30</div>
-    </a>
-    <a href="#" style="background:#fff; border-radius:8px; text-align:center; padding:15px 5px; display:block;">
-      <div style="font-size:32px; margin-bottom:8px;">🥿</div>
-      <div style="color:#ff6a00; font-weight:bold; font-size:15px;">¥12</div>
-    </a>
-  </div>
-</div>
+    <div class="func-card">
+      <div class="func-grid">
+        <div class="func-item"><div class="icon">🔥</div><div class="name">爆品推荐</div></div>
+        <div class="func-item"><div class="icon">📦</div><div class="name">全部分类</div></div>
+        <div class="func-item"><div class="icon">🏷️</div><div class="name">货源市场</div></div>
+        <div class="func-item"><div class="icon">📊</div><div class="name">行情分析</div></div>
+        <div class="func-item"><div class="icon">🔍</div><div class="name">搜索货源</div></div>
+      </div>
+      <div class="filter-row">
+        <span>🌍 国家/地区：</span>
+        <select>
+          <option>全部国家</option>
+          <option>中国</option>
+          <option>俄罗斯</option>
+          <option>吉尔吉斯斯坦</option>
+        </select>
+      </div>
+    </div>
 
-<!-- 📦 为您推荐 一行2个 -->
-<div style="padding:0 12px;">
-  <div style="font-size:15px; font-weight:bold; margin-bottom:10px;">为您推荐</div>
-  <div style="display:grid; grid-template-columns:repeat(2,1fr); gap:10px;">
+    <div class="section">
+      <div class="section-head">
+        <span class="section-title">🔥 爆品推荐</span>
+        <span class="more-link">查看更多 →</span>
+      </div>
+      <div class="hot-grid">
+        <div class="hot-card"><div class="icon">👖</div><div class="price">¥26</div></div>
+        <div class="hot-card"><div class="icon">👚</div><div class="price">¥30</div></div>
+        <div class="hot-card"><div class="icon">🥿</div><div class="price">¥12</div></div>
+      </div>
+    </div>
 
-    <a href="#" style="background:#fff; border-radius:8px; overflow:hidden; display:block; position:relative;">
-      <div style="position:absolute; top:6px; left:6px; background:#ff6a00; color:#fff; font-size:11px; padding:2px 5px; border-radius:3px; z-index:2;">佣金12%</div>
-      <div style="position:absolute; top:6px; right:6px; font-size:15px; color:#ccc; z-index:2;">❤️</div>
-      <div style="height:120px; background:#f8f8f8; display:flex; align-items:center; justify-content:center; font-size:38px;">🧥</div>
-      <div style="padding:9px;">
-        <div style="font-size:13px; color:#333; height:36px; line-height:18px; overflow:hidden;">运动休闲外套 防风透气春秋款</div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
-          <span style="color:#ff6a00; font-weight:bold; font-size:16px;">¥89</span>
-          <span style="font-size:11px; color:#999;">已售2580</span>
+    <div class="section">
+      <div class="section-head"><span class="section-title">为您推荐</span></div>
+      <div class="goods-grid">
+        <div class="goods-card">
+          <span class="tag-commission">佣金12%</span>
+          <span class="tag-fav">❤️</span>
+          <div class="goods-img">🧥</div>
+          <div class="goods-info">
+            <div class="goods-name">运动休闲外套 防风透气春秋款</div>
+            <div class="goods-bottom">
+              <span class="goods-price">¥89</span>
+              <span class="goods-sold">已售2580</span>
+            </div>
+          </div>
+        </div>
+        <div class="goods-card">
+          <span class="tag-commission">佣金15%</span>
+          <span class="tag-fav">❤️</span>
+          <div class="goods-img">🧥</div>
+          <div class="goods-info">
+            <div class="goods-name">温柔风针织毛衣 软糯亲肤</div>
+            <div class="goods-bottom">
+              <span class="goods-price">¥58</span>
+              <span class="goods-sold">已售3420</span>
+            </div>
+          </div>
         </div>
       </div>
-    </a>
+    </div>
+  </div>
 
-    <a href="#" style="background:#fff; border-radius:8px; overflow:hidden; display:block; position:relative;">
-      <div style="position:absolute; top:6px; left:6px; background:#ff6a00; color:#fff; font-size:11px; padding:2px 5px; border-radius:3px; z-index:2;">佣金15%</div>
-      <div style="position:absolute; top:6px; right:6px; font-size:15px; color:#ccc; z-index:2;">❤️</div>
-      <div style="height:120px; background:#f8f8f8; display:flex; align-items:center; justify-content:center; font-size:38px;">🧥</div>
-      <div style="padding:9px;">
-        <div style="font-size:13px; color:#333; height:36px; line-height:18px; overflow:hidden;">温柔风针织毛衣 软糯亲肤</div>
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
-          <span style="color:#ff6a00; font-weight:bold; font-size:16px;">¥58</span>
-          <span style="font-size:11px; color:#999;">已售3420</span>
+  <!-- ===== 商城页 ===== -->
+  <div id="page-shop" class="page">
+    <div class="top-bar">
+      <div class="search-row">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="搜索商品、店铺">
+        <span class="user-icon">👤</span>
+        <span class="fav-icon">❤️</span>
+      </div>
+    </div>
+    <div class="section" style="margin-top:14px;">
+      <div class="section-head"><span class="section-title">全部商品</span></div>
+      <div class="goods-grid">
+        <div class="goods-card">
+          <span class="tag-commission">佣金10%</span>
+          <span class="tag-fav">❤️</span>
+          <div class="goods-img">👟</div>
+          <div class="goods-info">
+            <div class="goods-name">透气运动鞋 轻便防滑跑步鞋</div>
+            <div class="goods-bottom">
+              <span class="goods-price">¥128</span>
+              <span class="goods-sold">已售1680</span>
+            </div>
+          </div>
+        </div>
+        <div class="goods-card">
+          <span class="tag-commission">佣金8%</span>
+          <span class="tag-fav">❤️</span>
+          <div class="goods-img">🎒</div>
+          <div class="goods-info">
+            <div class="goods-name">大容量双肩包 商务旅行背包</div>
+            <div class="goods-bottom">
+              <span class="goods-price">¥99</span>
+              <span class="goods-sold">已售2100</span>
+            </div>
+          </div>
         </div>
       </div>
-    </a>
-
+    </div>
   </div>
+
+  <!-- ===== 任务页 ===== -->
+  <div id="page-task" class="page">
+    <div class="placeholder-page">
+      <h2 style="color:#333; margin-bottom:10px;">任务中心</h2>
+      <p>完成任务赚取佣金 · 内容开发中</p>
+    </div>
+  </div>
+
+  <!-- ===== 钱包页 ===== -->
+  <div id="page-wallet" class="page">
+    <div class="placeholder-page">
+      <h2 style="color:#333; margin-bottom:10px;">我的钱包</h2>
+      <p>余额、佣金、提现记录 · 内容开发中</p>
+    </div>
+  </div>
+
+  <!-- ===== 我的页 ===== -->
+  <div id="page-user" class="page">
+    <div class="placeholder-page">
+      <h2 style="color:#333; margin-bottom:10px;">个人中心</h2>
+      <p>头像、资料、设置、订单 · 内容开发中</p>
+    </div>
+  </div>
+
+  <!-- ===== 底部导航 ===== -->
+  <div class="bottom-nav">
+    <div class="nav-item active" data-page="home">
+      <div class="icon">🏠</div>
+      <div class="name">首页</div>
+    </div>
+    <div class="nav-item" data-page="shop">
+      <div class="icon">🛒</div>
+      <div class="name">商城</div>
+    </div>
+    <div class="nav-item" data-page="task">
+      <div class="icon">📋</div>
+      <div class="name">任务</div>
+    </div>
+    <div class="nav-item" data-page="wallet">
+      <div class="icon">💰</div>
+      <div class="name">钱包</div>
+    </div>
+    <div class="nav-item" data-page="user">
+      <div class="icon">👤</div>
+      <div class="name">我的</div>
+    </div>
+  </div>
+
 </div>
 
-<!-- 🧭 底部导航 -->
-<div style="position:fixed; bottom:0; left:0; right:0; background:#fff; border-top:1px solid #eee; display:grid; grid-template-columns:repeat(5,1fr); padding:4px 0; padding-bottom:8px;">
-  <a href="#" style="text-align:center; color:#ff6a00;">
-    <div style="font-size:20px;">🏠</div>
-    <div style="font-size:11px;">首页</div>
-  </a>
-  <a href="#" style="text-align:center; color:#999;">
-    <div style="font-size:20px;">🛒</div>
-    <div style="font-size:11px;">商城</div>
-  </a>
-  <a href="#" style="text-align:center; color:#999;">
-    <div style="font-size:20px;">📋</div>
-    <div style="font-size:11px;">任务</div>
-  </a>
-  <a href="#" style="text-align:center; color:#999;">
-    <div style="font-size:20px;">💰</div>
-    <div style="font-size:11px;">钱包</div>
-  </a>
-  <a href="#" style="text-align:center; color:#999;">
-    <div style="font-size:20px;">👤</div>
-    <div style="font-size:11px;">我的</div>
-  </a>
-</div>
+<script>
+// ===== SPA 页面切换逻辑 =====
+const navItems = document.querySelectorAll('.nav-item');
+const pages = document.querySelectorAll('.page');
+
+navItems.forEach(item => {
+  item.addEventListener('click', () => {
+    // 移除所有高亮
+    navItems.forEach(nav => nav.classList.remove('active'));
+    // 隐藏所有页面
+    pages.forEach(p => p.classList.remove('active'));
+    // 高亮当前导航
+    item.classList.add('active');
+    // 显示对应页面
+    const pageName = item.getAttribute('data-page');
+    document.getElementById('page-' + pageName).classList.add('active');
+  });
+});
+</script>
 
 </body>
 </html>
