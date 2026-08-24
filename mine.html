@@ -2,8 +2,8 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <!-- ========== 浏览器标签图标：直接嵌入代码，永久生效 ========== -->
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23FF6A00'/><text x='50' y='65' font-size='50' text-anchor='middle' fill='white'>👤</text></svg>">
+  <!-- ========== 浏览器标签图标：固定为商城主题头像 ========== -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%23FF6A00'/><path d='M35 30h30l-5 35H40l-5-35zm15-5a10 10 0 110 20 10 10 0 010-20zm-8 25h16' fill='white' stroke='white' stroke-width='3' stroke-linecap='round'/></svg>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>我的 — 全球商家商城</title>
   <style>
@@ -16,20 +16,20 @@
     .header {background:linear-gradient(90deg, var(--primary-start), var(--primary-end)); color:#fff; padding:32px 16px 24px; border-radius:0 0 20px 20px;}
     .header-top {display:flex; align-items:center; gap:14px;}
 
-    /* ========== 页面头像：强制永久显示，不透明、不隐藏、最高优先级 ========== */
+    /* ========== 页面头像：商城主题头像，永久固定显示 ========== */
     .avatar {
       width:58px !important;
       height:58px !important;
       border-radius:50% !important;
-      background:#fff !important;
+      background:linear-gradient(135deg, #FF8A00, #FF6A00) !important;
       display:flex !important;
       align-items:center !important;
       justify-content:center !important;
-      font-size:28px !important;
+      font-size:26px !important;
       border:3px solid #fff !important;
       flex-shrink:0 !important;
       box-shadow:0 2px 8px rgba(0,0,0,0.15) !important;
-      color:#FF6A00 !important;
+      color:#fff !important;
       font-weight:bold !important;
       position:relative !important;
       z-index:9999 !important;
@@ -37,8 +37,9 @@
       visibility:visible !important;
       line-height:1 !important;
     }
+
     .avatar::before {
-      content:"👤" !important;
+      content:"🛍️" !important;
       display:block !important;
     }
 
@@ -226,7 +227,7 @@
   </div>
 
   <!-- 原有功能菜单 -->
-  <div class="menu-section">
+    <div class="menu-section">
     <div class="menu-item" onclick="alert('进入实名认证页面')">
       <span class="menu-icon">✅</span>
       <span class="menu-name">实名认证</span>
@@ -278,7 +279,7 @@
       <div>钱包</div>
     </a>
     <a href="mine.html" class="tab-item active">
-      <span class="tab-icon">👤</span>
+      <span class="tab-icon">🛍️</span>
       <div>我的</div>
     </a>
   </div>
