@@ -5,37 +5,56 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>钱包 — 全球商家商城</title>
   <style>
-    * {margin:0; padding:0; box-sizing:border-box; font-family:"PingFang SC", "Microsoft YaHei", sans-serif;}
-    :root {--primary:#FF6A00; --bg:#F5F5F5; --card:#fff; --text:#333; --green:#52C41A; --red:#FF4D4F;}
-    body {background:var(--bg); max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:70px;}
+    * {margin:0; padding:0; box-sizing:border-box; font-family:"PingFang SC", "Microsoft YaHei", sans-serif; -webkit-tap-highlight-color:transparent;}
+    :root {--primary:#FF6A00; --bg:#F5F5F5; --card:#fff; --text:#333; --green:#52C41A; --red:#FF4D4F; --text2:#888;}
+    html, body {background:var(--bg); max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:70px;}
+    a {text-decoration:none; color:inherit; display:block;}
+    button {cursor:pointer; border:none; font-family:inherit;}
 
-    .header {background:linear-gradient(135deg, #FF6A00, #FF9500); color:#fff; padding:24px 16px 40px; border-radius:0 0 24px 24px; text-align:center;}
-    .balance-label {font-size:14px; opacity:0.9;}
-    .balance-num {font-size:36px; font-weight:800; margin:8px 0;}
-    .balance-row {display:flex; justify-content:center; gap:30px; margin-top:12px; font-size:13px;}
-    .balance-row span {opacity:0.9;}
+    /* 顶部橙色头部 — 完全对齐截图 */
+    .header {background:linear-gradient(135deg, #FF6A00, #FF8A00); color:#fff; padding:30px 20px 40px; border-radius:0 0 24px 24px; text-align:center; position:relative;}
+    /* 头像 */
+    .avatar {position:absolute; top:16px; left:16px; width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:22px; border:2px solid #fff; cursor:pointer;}
+    .balance-label {font-size:15px; opacity:0.9; margin-top:8px;}
+    .balance-num {font-size:40px; font-weight:800; margin:8px 0; letter-spacing:-0.5px;}
+    .balance-row {display:flex; justify-content:center; gap:24px; font-size:13px; opacity:0.9;}
 
-    .btn-wrap {display:flex; gap:12px; padding:0 16px; margin:-20px 0 20px;}
-    .btn {flex:1; background:#fff; color:var(--primary); border:none; padding:12px; border-radius:10px; font-size:15px; font-weight:600; box-shadow:0 4px 8px rgba(0,0,0,0.06);}
-    .btn.primary {background:var(--primary); color:#fff;}
+    /* 按钮组 */
+    .btn-wrap {display:flex; gap:12px; padding:0 16px; margin:-20px 0 20px; position:relative; z-index:10;}
+    .btn {flex:1; padding:12px 10px; border-radius:10px; font-size:15px; font-weight:600; text-align:center; transition:all 0.2s;}
+    .btn-primary {background:var(--primary); color:#fff; box-shadow:0 4px 10px rgba(255,106,0,0.25);}
+    .btn-primary:active {background:#E65F00; transform:scale(0.98);}
+    .btn-outline {background:#fff; color:var(--primary);}
+    .btn-outline:active {background:#FFF5EB;}
 
+    /* 收支列表区 */
     .section {padding:0 16px;}
-    .sec-title {font-size:16px; font-weight:600; margin-bottom:12px; display:flex; justify-content:space-between;}
-    .bill-item {background:#fff; border-radius:8px; padding:12px; margin-bottom:8px; display:flex; justify-content:space-between; align-items:center;}
-    .bill-left h4 {font-size:14px; margin-bottom:4px;}
-    .bill-left p {font-size:12px; color:#888;}
-    .bill-plus {color:var(--green); font-weight:600; font-size:15px;}
-    .bill-minus {color:var(--red); font-weight:600; font-size:15px;}
+    .sec-title {font-size:16px; font-weight:600; margin-bottom:12px; display:flex; justify-content:space-between; align-items:center;}
+    .sec-title a {font-size:14px; color:var(--primary);}
+    .bill-card {background:#fff; border-radius:10px; overflow:hidden;}
+    .bill-item {padding:14px 16px; border-bottom:1px solid #f8f8f8; cursor:pointer; transition:background 0.15s;}
+    .bill-item:active {background:#fafafa;}
+    .bill-item:last-child {border-bottom:none;}
+    .bill-top {display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;}
+    .bill-name {font-size:15px; font-weight:500;}
+    .bill-amount {font-size:16px; font-weight:600;}
+    .bill-plus {color:var(--green);}
+    .bill-minus {color:var(--red);}
+    .bill-date {font-size:12px; color:#aaa;}
 
-    .tab-bar {position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; border-top:1px solid #eee; display:flex; padding:6px 0 8px; z-index:999;}
-    .tab-item {flex:1; text-align:center; font-size:11px; color:#888;}
+    /* 底部导航栏 — 固定 + 高亮 */
+    .tab-bar {position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; border-top:1px solid #eee; display:flex; padding:8px 0 10px; z-index:999;}
+    .tab-item {flex:1; text-align:center; font-size:11px; color:var(--text2); cursor:pointer; transition:color 0.2s;}
     .tab-item.active {color:var(--primary);}
-    .tab-icon {font-size:22px; margin-bottom:2px;}
+    .tab-icon {font-size:22px; margin-bottom:2px; pointer-events:none;}
   </style>
 </head>
 <body>
 
+  <!-- 顶部头部 + 头像 -->
   <div class="header">
+    <!-- 左上角头像 可点击跳转到个人中心 -->
+    <a href="mine.html" class="avatar">👤</a>
     <div class="balance-label">可提现余额</div>
     <div class="balance-num">$12,580.68</div>
     <div class="balance-row">
@@ -44,33 +63,73 @@
     </div>
   </div>
 
+  <!-- 按钮组 全部可点击 -->
   <div class="btn-wrap">
-    <button class="btn primary">💰 立即提现</button>
-    <button class="btn">📊 收益明细</button>
+    <a href="#" class="btn btn-primary" onclick="withdraw()">💰 立即提现</a>
+    <a href="#" class="btn btn-outline" onclick="viewDetail()">📊 收益明细</a>
   </div>
 
+  <!-- 收支列表 全部可点击 -->
   <div class="section">
-    <h2 class="sec-title">最近收支 <a href="#" style="font-size:13px; color:#FF6A00;">查看全部</a></h2>
-    <div class="bill-item">
-      <div class="bill-left"><h4>订单佣金 — 俄罗斯蜂蜜</h4><p>2026-08-24 10:28</p></div>
-      <div class="bill-plus">+$12.85</div>
+    <div class="sec-title">
+      <span>最近收支</span>
+      <a href="#" onclick="viewAll()">查看全部</a>
     </div>
-    <div class="bill-item">
-      <div class="bill-left"><h4>提现申请</h4><p>2026-08-23 15:30</p></div>
-      <div class="bill-minus">-$500.00</div>
-    </div>
-    <div class="bill-item">
-      <div class="bill-left"><h4>邀请好友奖励</h4><p>2026-08-22 09:15</p></div>
-      <div class="bill-plus">+$5.00</div>
+    <div class="bill-card">
+      <div class="bill-item" onclick="viewBill(1)">
+        <div class="bill-top">
+          <span class="bill-name">订单佣金 — 俄罗斯蜂蜜</span>
+          <span class="bill-amount bill-plus">+$12.85</span>
+        </div>
+        <div class="bill-date">2026-08-24 10:28</div>
+      </div>
+      <div class="bill-item" onclick="viewBill(2)">
+        <div class="bill-top">
+          <span class="bill-name">提现申请</span>
+          <span class="bill-amount bill-minus">-$500.00</span>
+        </div>
+        <div class="bill-date">2026-08-23 15:30</div>
+      </div>
+      <div class="bill-item" onclick="viewBill(3)">
+        <div class="bill-top">
+          <span class="bill-name">邀请好友奖励</span>
+          <span class="bill-amount bill-plus">+$5.00</span>
+        </div>
+        <div class="bill-date">2026-08-22 09:15</div>
+      </div>
     </div>
   </div>
 
+  <!-- 底部导航 全部可点击 + 当前页高亮 -->
   <div class="tab-bar">
-    <a href="index.html" class="tab-item"><div class="tab-icon">🏠</div><div>首页</div></a>
-    <a href="mall.html" class="tab-item"><div class="tab-icon">🛍️</div><div>商城</div></a>
-    <a href="task.html" class="tab-item"><div class="tab-icon">📋</div><div>任务</div></a>
-    <a href="wallet.html" class="tab-item active"><div class="tab-icon">💰</div><div>钱包</div></a>
-    <a href="mine.html" class="tab-item"><div class="tab-icon">👤</div><div>我的</div></a>
+    <a href="index.html" class="tab-item">
+      <div class="tab-icon">🏠</div>
+      <div>首页</div>
+    </a>
+    <a href="mall.html" class="tab-item">
+      <div class="tab-icon">🛍️</div>
+      <div>商城</div>
+    </a>
+    <a href="task.html" class="tab-item">
+      <div class="tab-icon">📋</div>
+      <div>任务</div>
+    </a>
+    <a href="wallet.html" class="tab-item active">
+      <div class="tab-icon">💰</div>
+      <div>钱包</div>
+    </a>
+    <a href="mine.html" class="tab-item">
+      <div class="tab-icon">👤</div>
+      <div>我的</div>
+    </a>
   </div>
+
+  <script>
+    // ========== 所有按钮点击事件 ==========
+    function withdraw() { alert('✅ 进入提现页面'); }
+    function viewDetail() { alert('✅ 查看收益明细'); }
+    function viewAll() { alert('✅ 查看全部收支记录'); }
+    function viewBill(id) { alert('✅ 查看收支详情：记录#' + id); }
+  </script>
 </body>
 </html>
