@@ -1,119 +1,93 @@
-'use client';
-import { useState, useEffect } from 'react';
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全球商城 · 电商任务平台</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:system-ui, -apple-system, sans-serif;}
+    body {background:linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); color:white; min-height:100vh;}
+    header {display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; background:rgba(0,0,0,0.15);}
+    .logo {font-size:1.25rem; font-weight:700;}
+    .header-actions {display:flex; gap:1rem; align-items:center;}
+    select {padding:0.4rem 0.8rem; border-radius:6px; border:none; background:white; color:#1e3a8a; font-weight:500; cursor:pointer;}
+    .btn {padding:0.5rem 1.2rem; border-radius:6px; border:none; font-weight:600; cursor:pointer;}
+    .btn-login {background:white; color:#1e3a8a;}
+    .btn-register {background:#facc15; color:#1e3a8a;}
+    .hero {padding:3rem 2rem; text-align:center;}
+    .hero h1 {font-size:2.5rem; margin-bottom:1rem;}
+    .hero p {font-size:1.15rem; opacity:0.9; margin-bottom:2.5rem;}
+    .stats {display:flex; justify-content:center; gap:2rem; flex-wrap:wrap; margin-bottom:3rem;}
+    .stat-card {background:rgba(255,255,255,0.2); padding:1.5rem 2.5rem; border-radius:12px; backdrop-filter:blur(8px);}
+    .stat-label {font-size:0.95rem; opacity:0.8; margin-bottom:0.5rem;}
+    .stat-value {font-size:2rem; font-weight:700;}
+    .section {padding:2rem;}
+    .section h2 {text-align:center; margin-bottom:2rem;}
+    .grid {display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1.2rem; max-width:1000px; margin:0 auto;}
+    .grid-item {background:rgba(255,255,255,0.15); padding:1.2rem; border-radius:10px; text-align:center; font-weight:500;}
+    .grid-2 {display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:1rem; max-width:1000px; margin:0 auto;}
+    .grid-item-2 {background:rgba(255,255,255,0.12); padding:1rem; border-radius:8px; text-align:center;}
+    .contact {padding:2rem; text-align:center; background:rgba(0,0,0,0.15);}
+    .contact-links {margin-top:1rem; display:flex; justify-content:center; gap:2rem; flex-wrap:wrap;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">🌐 全球电商平台</div>
+    <div class="header-actions">
+      <select id="lang">
+        <option value="zh">🇨🇳 中文</option>
+        <option value="ru">🇷🇺 Русский</option>
+      </select>
+      <button class="btn btn-login">登录账户</button>
+      <button class="btn btn-register">立即注册</button>
+    </div>
+  </header>
 
-export default function HomePage() {
-  const [todayEarnings, setTodayEarnings] = useState(0);
-  const [totalCommission, setTotalCommission] = useState(0);
-  const [lang, setLang] = useState('zh');
+  <section class="hero">
+    <h1>全球商城 · 电商任务平台</h1>
+    <p>商品 · 订单 · 佣金 · 提现 · 一站式全球电商任务系统</p>
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">今日收益</div>
+        <div class="stat-value">$1,258.68</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">累计佣金</div>
+        <div class="stat-value">$45,892.35</div>
+      </div>
+    </div>
+  </section>
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setTodayEarnings(1258.68);
-      setTotalCommission(45892.35);
-    }, 500);
-    return () => clearTimeout(timer);
-  }, []);
+  <section class="section" style="background:rgba(255,255,255,0.08);">
+    <h2>核心功能</h2>
+    <div class="grid">
+      <div class="grid-item">✅ 商品浏览</div>
+      <div class="grid-item">✅ 一键接单</div>
+      <div class="grid-item">✅ 实时佣金</div>
+      <div class="grid-item">✅ 每日收益</div>
+    </div>
+  </section>
 
-  const t = {
-    zh: {
-      heroTitle: '全球商城 · 电商任务平台',
-      todayEarnings: '今日收益',
-      totalCommission: '累计佣金',
-      register: '立即注册',
-      login: '登录账户',
-      browseProducts: '商品浏览',
-      takeOrder: '一键接单',
-      realtimeCommission: '实时佣金',
-      dailyEarnings: '每日收益',
-      multiCountry: '覆盖 200+ 国家',
-      merchantCoop: '全球商家合作',
-      secureFunds: '安全资金系统',
-      support24: '24 小时客服',
-      fastWithdraw: '快速提现',
-      smartMatch: '智能订单匹配',
-      faq: '常见问题',
-      contactUs: '联系我们'
-    },
-    ru: {
-      heroTitle: 'Глобальный маркетплейс',
-      todayEarnings: 'Доход сегодня',
-      totalCommission: 'Общий доход',
-      register: 'Регистрация',
-      login: 'Войти',
-      browseProducts: 'Товары',
-      takeOrder: 'Принять заказ',
-      realtimeCommission: 'Комиссия онлайн',
-      dailyEarnings: 'Ежедневный доход',
-      multiCountry: '200+ стран',
-      merchantCoop: 'Глобальные продавцы',
-      secureFunds: 'Безопасные выплаты',
-      support24: 'Поддержка 24/7',
-      fastWithdraw: 'Быстрый вывод',
-      smartMatch: 'Умный подбор заказов',
-      faq: 'Вопросы и ответы',
-      contactUs: 'Связаться с нами'
-    }
-  }[lang] || t.zh;
+  <section class="section">
+    <h2>平台优势</h2>
+    <div class="grid-2">
+      <div class="grid-item-2">⭐ 覆盖 200+ 国家</div>
+      <div class="grid-item-2">⭐ 全球商家合作</div>
+      <div class="grid-item-2">⭐ 安全资金系统</div>
+      <div class="grid-item-2">⭐ 24 小时客服</div>
+      <div class="grid-item-2">⭐ 快速提现</div>
+      <div class="grid-item-2">⭐ 智能订单匹配</div>
+    </div>
+  </section>
 
-  return (
-    <main style={{ minHeight: '100vh', background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)', color: 'white', fontFamily: 'system-ui, sans-serif' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem 2rem', background: 'rgba(0,0,0,0.15)' }}>
-        <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 700 }}>🌐 全球电商平台</h2>
-        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-          <select value={lang} onChange={(e) => setLang(e.target.value)} style={{ padding: '0.4rem 0.8rem', borderRadius: '6px', border: 'none', background: 'white', color: '#1e3a8a', fontWeight: 500 }}>
-            <option value="zh">🇨🇳 中文</option>
-            <option value="ru">🇷🇺 Русский</option>
-          </select>
-          <button style={{ padding: '0.5rem 1.2rem', borderRadius: '6px', border: 'none', background: 'white', color: '#1e3a8a', fontWeight: 600, cursor: 'pointer' }}>{t.login}</button>
-          <button style={{ padding: '0.5rem 1.2rem', borderRadius: '6px', border: 'none', background: '#facc15', color: '#1e3a8a', fontWeight: 600, cursor: 'pointer' }}>{t.register}</button>
-        </div>
-      </header>
-
-      <section style={{ padding: '3rem 2rem', textAlign: 'center' }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{t.heroTitle}</h1>
-        <p style={{ fontSize: '1.15rem', opacity: 0.9, marginBottom: '2.5rem' }}>商品 · 订单 · 佣金 · 提现 · 一站式全球电商任务系统</p>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap', marginBottom: '3rem' }}>
-          <div style={{ background: 'rgba(255,255,255,0.2)', padding: '1.5rem 2.5rem', borderRadius: '12px', backdropFilter: 'blur(8px)' }}>
-            <div style={{ fontSize: '0.95rem', opacity: 0.8, marginBottom: '0.5rem' }}>{t.todayEarnings}</div>
-            <div style={{ fontSize: '2rem', fontWeight: 700 }}>${todayEarnings.toFixed(2)}</div>
-          </div>
-          <div style={{ background: 'rgba(255,255,255,0.2)', padding: '1.5rem 2.5rem', borderRadius: '12px', backdropFilter: 'blur(8px)' }}>
-            <div style={{ fontSize: '0.95rem', opacity: 0.8, marginBottom: '0.5rem' }}>{t.totalCommission}</div>
-            <div style={{ fontSize: '2rem', fontWeight: 700 }}>${totalCommission.toFixed(2)}</div>
-          </div>
-        </div>
-      </section>
-
-      <section style={{ padding: '2rem', background: 'rgba(255,255,255,0.08)' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>核心功能</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.2rem', maxWidth: '1000px', margin: '0 auto' }}>
-          {[t.browseProducts, t.takeOrder, t.realtimeCommission, t.dailyEarnings].map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,0.15)', padding: '1.2rem', borderRadius: '10px', textAlign: 'center', fontWeight: 500 }}>
-              ✅ {item}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section style={{ padding: '2rem' }}>
-        <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>平台优势</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '1rem', maxWidth: '1000px', margin: '0 auto' }}>
-          {[t.multiCountry, t.merchantCoop, t.secureFunds, t.support24, t.fastWithdraw, t.smartMatch].map((item, i) => (
-            <div key={i} style={{ background: 'rgba(255,255,255,0.12)', padding: '1rem', borderRadius: '8px', textAlign: 'center' }}>
-              ⭐ {item}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section style={{ padding: '2rem', textAlign: 'center', background: 'rgba(0,0,0,0.15)' }}>
-        <h2>{t.contactUs}</h2>
-        <div style={{ marginTop: '1rem', display: 'flex', justifyContent: 'center', gap: '2rem', flexWrap: 'wrap' }}>
-          <span>📩 Telegram</span>
-          <span>💬 WhatsApp</span>
-          <span>📧 support@example.com</span>
-        </div>
-      </section>
-    </main>
-  );
-}
+  <section class="contact">
+    <h2>联系我们</h2>
+    <div class="contact-links">
+      <span>📩 Telegram</span>
+      <span>💬 WhatsApp</span>
+      <span>📧 support@example.com</span>
+    </div>
+  </section>
+</body>
+</html>
