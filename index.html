@@ -6,34 +6,47 @@
   <title>首页 — 全球商家商城</title>
   <style>
     * {margin:0; padding:0; box-sizing:border-box; font-family:"PingFang SC","Microsoft YaHei",sans-serif; -webkit-tap-highlight-color:transparent;}
-    :root {--primary:#FF6A00; --vip:#FFD700; --bg:#F5F5F5; --card:#fff; --text:#333; --text2:#888; --green:#52C41A;}
+    :root {--primary-start:#FF8A00; --primary-end:#FF6A00; --bg:#F5F5F5; --card:#fff; --text:#333; --text2:#888; --green:#52C41A;}
     html,body {background:var(--bg); max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:70px;}
     a {text-decoration:none; color:inherit; display:block;}
 
-    /* 顶部头部：头像+会员+数据+消息 */
-    .header {background:linear-gradient(135deg,#FF6A00,#FF8A00); color:#fff; padding:30px 16px 20px; border-radius:0 0 24px 24px;}
-    .header-top {display:flex; align-items:center; gap:12px; margin-bottom:16px;}
-    .avatar {width:52px; height:52px; border-radius:50%; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:26px; border:2px solid #fff; flex-shrink:0;}
-    .user-info {flex:1;}
-    .vip-tag {display:inline-block; background:linear-gradient(90deg,#FFD700,#FFA500); color:#8B4500; font-size:12px; font-weight:700; padding:1px 10px; border-radius:12px; margin-bottom:4px;}
-    .user-name {font-size:15px; font-weight:500;}
-    .msg-icon {font-size:22px; cursor:pointer;}
+    /* 顶部头部：阿里橙渐变 · 商务简洁风格 */
+    .header {background:linear-gradient(90deg, var(--primary-start), var(--primary-end)); color:#fff; padding:32px 16px 24px; border-radius:0 0 20px 20px;}
+    .header-top {display:flex; align-items:center; gap:14px; margin-bottom:18px;}
+
+    /* 头像：圆形 + 白色描边 */
+    .avatar {width:54px; height:54px; border-radius:50%; background:rgba(255,255,255,0.22); display:flex; align-items:center; justify-content:center; font-size:26px; border:2px solid #fff; flex-shrink:0; box-shadow:0 2px 6px rgba(0,0,0,0.08);}
+
+    /* 用户信息区 */
+    .user-wrap {flex:1;}
+    .rank-badge {display:inline-flex; align-items:center; gap:4px; font-size:12px; font-weight:600; padding:2px 12px; border-radius:20px; margin-bottom:6px; box-shadow:inset 0 1px 3px rgba(0,0,0,0.1);}
+    /* 等级徽章：金属质感渐变 · 仅显示称号 */
+    .rank-bronze {background:linear-gradient(90deg, #CD7F32, #E09450, #CD7F32); color:#fff;}
+    .rank-silver {background:linear-gradient(90deg, #C0C0C0, #E8E8E8, #C0C0C0); color:#444;}
+    .rank-gold {background:linear-gradient(90deg, #FFD700, #FFF3AC, #FFD700); color:#8B4500;}
+    .rank-platinum {background:linear-gradient(90deg, #E5E4E2, #F5F5F5, #D4D4D4); color:#333;}
+    .rank-diamond {background:linear-gradient(90deg, #00BFFF, #B0E2FF, #00BFFF); color:#004466;}
+    .user-title {font-size:16px; font-weight:600; letter-spacing:0.3px;}
+    .user-subtitle {font-size:12px; opacity:0.85; margin-top:3px;}
+
+    /* 消息图标 */
+    .msg-icon {font-size:22px; cursor:pointer; padding:4px;}
 
     /* 数据卡片：今日收益 / 钱包余额 */
-    .data-row {display:flex; gap:12px; margin-bottom:16px;}
-    .data-card {flex:1; background:rgba(255,255,255,0.18); border-radius:12px; padding:10px 12px;}
-    .data-label {font-size:12px; opacity:0.9;}
-    .data-val {font-size:18px; font-weight:700; margin-top:4px;}
+    .data-row {display:flex; gap:12px;}
+    .data-card {flex:1; background:rgba(255,255,255,0.18); border-radius:12px; padding:12px 14px; backdrop-filter:blur(4px);}
+    .data-label {font-size:13px; opacity:0.9;}
+    .data-val {font-size:20px; font-weight:700; margin-top:4px; letter-spacing:0.3px;}
 
     /* 轮播图 */
-    .banner {margin:0 16px; border-radius:12px; overflow:hidden; position:relative; height:140px; background:#eee;}
+    .banner {margin:16px; border-radius:12px; overflow:hidden; position:relative; height:140px; background:#eee;}
     .banner-img {width:100%; height:100%; object-fit:cover; display:flex; align-items:center; justify-content:center; font-size:40px; color:#999;}
     .banner-dots {position:absolute; bottom:8px; left:50%; transform:translateX(-50%); display:flex; gap:6px;}
     .dot {width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,0.4);}
     .dot.active {background:#fff; width:18px; border-radius:4px;}
 
     /* 平台公告滚动 */
-    .notice {margin:12px 16px; background:#FFF7E8; border-radius:8px; padding:8px 12px; display:flex; align-items:center; gap:8px; overflow:hidden;}
+    .notice {margin:0 16px 16px; background:#FFF7E8; border-radius:8px; padding:8px 12px; display:flex; align-items:center; gap:8px; overflow:hidden;}
     .notice-icon {color:#FF8A00; flex-shrink:0;}
     .notice-text {flex:1; font-size:13px; color:#8B4500; white-space:nowrap; overflow:hidden;}
     .notice-text span {display:inline-block; animation:scroll 15s linear infinite; white-space:nowrap;}
@@ -55,7 +68,7 @@
     .pro-info {padding:10px;}
     .pro-name {font-size:13px; height:36px; line-height:18px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;}
     .pro-price-row {display:flex; align-items:baseline; gap:6px; margin-top:6px;}
-    .pro-price {font-size:16px; font-weight:700; color:var(--primary);}
+    .pro-price {font-size:16px; font-weight:700; color:var(--primary-end);}
     .pro-rate {font-size:11px; color:var(--green); background:rgba(82,196,26,0.1); padding:1px 4px; border-radius:4px;}
     .pro-sold {font-size:11px; color:#aaa; margin-top:4px;}
 
@@ -69,19 +82,21 @@
     .tab-bar {position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; border-top:1px solid #eee; display:flex; padding:8px 0 10px; z-index:999;}
     .tab-item {flex:1; text-align:center; font-size:11px; color:#999; text-decoration:none;}
     .tab-item.active .tab-icon,
-    .tab-item.active div:last-child {color:var(--primary);}
+    .tab-item.active div:last-child {color:var(--primary-end);}
     .tab-icon {font-size:22px; margin-bottom:2px; display:block; color:#999;}
   </style>
 </head>
 <body>
 
-  <!-- 顶部：头像+会员+数据+消息 -->
+  <!-- 顶部：阿里橙商务风 · 头像+等级+欢迎语+消息 -->
   <div class="header">
     <div class="header-top">
       <a href="mine.html" class="avatar">👤</a>
-      <div class="user-info">
-        <span class="vip-tag">VIP1</span>
-        <div class="user-name">尊敬的会员，欢迎您</div>
+      <div class="user-wrap">
+        <!-- 等级徽章：自动切换样式，仅显示称号，无VIP字样 -->
+        <div class="rank-badge rank-bronze" id="rankBadge">🥉 铜牌</div>
+        <div class="user-title">尊敬的用户，欢迎您</div>
+        <div class="user-subtitle">全球商家商城 · 官方认证</div>
       </div>
       <div class="msg-icon" onclick="alert('查看消息通知')">🔔</div>
     </div>
@@ -97,7 +112,7 @@
     </div>
   </div>
 
-  <!-- 轮播图：3张 自动轮播 -->
+  <!-- 轮播图 -->
   <div class="banner">
     <div class="banner-img" id="bannerImg">🎉 新会员福利</div>
     <div class="banner-dots">
@@ -115,7 +130,7 @@
     </div>
   </div>
 
-  <!-- 快捷入口：四宫格 直接跳转 -->
+  <!-- 快捷入口：四宫格 -->
   <div class="section">
     <div class="grid4">
       <a href="mall.html" class="entry-item">
@@ -137,7 +152,7 @@
     </div>
   </div>
 
-  <!-- 推荐商品：图片/名称/价格/佣金比例/已售 -->
+  <!-- 推荐商品 -->
   <div class="section">
     <h2 class="sec-title">🔥 为您推荐</h2>
     <div class="pro-list">
@@ -166,7 +181,7 @@
     </div>
   </div>
 
-  <!-- 平台优势：6个图标卡片 -->
+  <!-- 平台优势 -->
   <div class="section">
     <h2 class="sec-title">✅ 平台优势</h2>
     <div class="adv-grid">
@@ -179,7 +194,7 @@
     </div>
   </div>
 
-  <!-- 底部导航：首页高亮 -->
+  <!-- 底部导航 -->
   <div class="tab-bar">
     <a href="index.html" class="tab-item active">
       <span class="tab-icon">🏠</span>
@@ -204,7 +219,7 @@
   </div>
 
   <script>
-    // 简单轮播 3张图
+    // 轮播
     const banners = ['🎉 新会员福利', '🍯 俄罗斯蜂蜜直供', '🎁 邀请享高额奖励'];
     const dots = document.querySelectorAll('.banner .dot');
     const img = document.getElementById('bannerImg');
@@ -214,6 +229,24 @@
       img.textContent = banners[idx];
       dots.forEach((d,i)=>d.classList.toggle('active', i===idx));
     }, 3000);
+
+    // ========== 等级自动切换函数 ==========
+    // 使用：setRank(1) 铜牌 / setRank(2) 银牌 / setRank(3) 金牌 / setRank(4) 白金 / setRank(5) 钻石
+    function setRank(level){
+      const badge = document.getElementById('rankBadge');
+      const configs = {
+        1: {text:'🥉 铜牌', cls:'rank-bronze'},
+        2: {text:'🥈 银牌', cls:'rank-silver'},
+        3: {text:'🥇 金牌', cls:'rank-gold'},
+        4: {text:'💠 白金', cls:'rank-platinum'},
+        5: {text:'💎 钻石', cls:'rank-diamond'}
+      };
+      const cfg = configs[level] || configs[1];
+      badge.className = 'rank-badge ' + cfg.cls;
+      badge.textContent = cfg.text;
+    }
+    // ↓ 在这里改数字即可自动切换等级：1铜牌 2银牌 3金牌 4白金 5钻石 ↓
+    setRank(1);
   </script>
 </body>
 </html>
