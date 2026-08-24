@@ -1,1 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Global Mall - 管理后台</title>
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+  <div id="admin-login" class="admin-login-page">
+    <div class="admin-login-container">
+      <div class="admin-login-title">🌍 Global Mall</div>
+      <div class="admin-login-sub">管理后台</div>
+      <div class="form-group">
+        <input type="tel" id="admin-phone" placeholder="手机号" class="form-input">
+      </div>
+      <div class="form-group">
+        <input type="password" id="admin-password" placeholder="密码" class="form-input">
+      </div>
+      <button class="btn-primary btn-block" id="admin-login-btn">登录</button>
+      <div class="login-error" id="admin-login-error"></div>
+    </div>
+  </div>
 
+  <div id="admin-app" style="display:none">
+    <header class="admin-header">
+      <div class="admin-header-left">🌍 Global Mall</div>
+      <div class="admin-header-right">
+        <span id="admin-user-name">管理员</span>
+        <button class="admin-logout-btn" id="admin-logout-btn">退出</button>
+      </div>
+    </header>
+
+    <nav class="admin-nav">
+      <button class="admin-nav-item active" data-section="dashboard">📊 仪表盘</button>
+      <button class="admin-nav-item" data-section="products">📦 商品管理</button>
+      <button class="admin-nav-item" data-section="orders">📋 订单管理</button>
+      <button class="admin-nav-item" data-section="users">👥 用户管理</button>
+    </nav>
+
+    <main class="admin-content">
+      <!-- 仪表盘 -->
+      <section id="admin-dashboard" class="admin-section active">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">今日订单</div>
+            <div class="stat-value" id="stat-today-orders">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">今日销售额</div>
+            <div class="stat-value" id="stat-today-sales">¥0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">总订单</div>
+            <div class="stat-value" id="stat-total-orders">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">总用户</div>
+            <div class="stat-value" id="stat-total-users">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">总商品</div>
+            <div class="stat-value" id="stat-total-products">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">总佣金</div>
+            <div class="stat-value" id="stat-total-commission">¥0</div>
+          </div>
+        </div>
+        <div class="recent-orders">
+          <h3>最近订单</h3>
+          <div id="recent-orders-list"></div>
+        </div>
+      </section>
+
+      <!-- 商品管理 -->
+      <section id="admin-products" class="admin-section">
+        <div class="section-header">
+          <h2>商品管理</h2>
+          <button class="btn-primary" id="add-product-btn">+ 添加商品</button>
+        </div>
+        <div class="product-table-wrap">
+          <table class="admin-table" id="product-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>图片</th>
+                <th>名称</th>
+                <th>价格</th>
+                <th>库存</th>
+                <th>佣金</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="product-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 订单管理 -->
+      <section id="admin-orders" class="admin-section">
+        <div class="section-header">
+          <h2>订单管理</h2>
+          <select id="admin-order-filter" class="form-select">
+            <option value="all">全部</option>
+            <option value="pending">待付款</option>
+            <option value="paid">已付款</option>
+            <option value="shipped">已发货</option>
+            <option value="delivered">已完成</option>
+            <option value="cancelled">已取消</option>
+          </select>
+        </div>
+        <div class="order-table-wrap">
+          <table class="admin-table" id="order-table">
+            <thead>
+              <tr>
+                <th>订单号</th>
+                <th>用户</th>
+                <th>商品</th>
+                <th>数量</th>
+                <th>金额</th>
+                <th>佣金</th>
+                <th>状态</th>
+                <th>时间</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="order-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 用户管理 -->
+      <section id="admin-users" class="admin-section">
+        <div class="section-header">
+          <h2>用户管理</h2>
+        </div>
+        <div class="user-table-wrap">
+          <table class="admin-table" id="user-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>手机号</th>
+                <th>昵称</th>
+                <th>国家</th>
+                <th>余额</th>
+                <th>收益</th>
+                <th>角色</th>
+                <th>注册时间</th>
+              </tr>
+            </thead>
+            <tbody id="user-table-body"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- 商品编辑弹窗 -->
+  <div class="modal" id="product-modal" style="display:none">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 id="product-modal-title">添加商品</h3>
+        <button class="modal-close" id="product-modal-close">×</button>
+      </div>
+      <form id="product-form">
+        <input type="hidden" id="product-id">
+        <div class="form-group">
+          <label>商品名称 *</label>
+          <input type="text" id="product-title" class="form-input" required>
+        </div>
+        <div class="form-group">
+          <label>描述</label>
+          <textarea id="product-desc" class="form-input" rows="3"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>价格 *</label>
+            <input type="number" id="product-price" class="form-input" step="0.01" required>
+          </div>
+          <div class="form-group">
+            <label>库存</label>
+            <input type="number" id="product-stock" class="form-input" value="0">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>分类</label>
+            <input type="text" id="product-category" class="form-input" placeholder="电子产品">
+          </div>
+          <div class="form-group">
+            <label>佣金率 (%)</label>
+            <input type="number" id="product-commission" class="form-input" step="0.001" value="10">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>图片</label>
+          <input type="file" id="product-image" class="form-input" accept="image/*">
+          <input type="hidden" id="product-image-url">
+          <div id="product-image-preview"></div>
+        </div>
+        <div class="form-group">
+          <label>状态</label>
+          <select id="product-status" class="form-input">
+            <option value="1">上架</option>
+            <option value="0">下架</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary btn-block">保存</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/i18n.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
