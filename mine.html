@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>我的 — 全球商家商城</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:"PingFang SC","Microsoft YaHei",sans-serif; -webkit-tap-highlight-color:transparent;}
+    :root {--primary-start:#FF8A00; --primary-end:#FF6A00; --bg:#F5F5F5; --card:#fff; --text:#333; --text2:#888; --line:#eee;}
+    html,body {background:var(--bg); max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:70px;}
+    a {text-decoration:none; color:inherit; display:block;}
+
+    /* 顶部：阿里橙商务风 */
+    .header {background:linear-gradient(90deg, var(--primary-start), var(--primary-end)); color:#fff; padding:32px 16px 24px; border-radius:0 0 20px 20px;}
+    .header-top {display:flex; align-items:center; gap:14px;}
+    .avatar {width:58px; height:58px; border-radius:50%; background:rgba(255,255,255,0.22); display:flex; align-items:center; justify-content:center; font-size:28px; border:2px solid #fff; flex-shrink:0; box-shadow:0 2px 6px rgba(0,0,0,0.08);}
+    .info-wrap {flex:1;}
+    .uid-line {font-size:14px; opacity:0.9; margin-bottom:4px;}
+    .rank-badge {display:inline-flex; align-items:center; gap:4px; font-size:12px; font-weight:600; padding:2px 12px; border-radius:20px; margin-bottom:6px; box-shadow:inset 0 1px 3px rgba(0,0,0,0.1);}
+    .rank-bronze {background:linear-gradient(90deg, #CD7F32, #E09450, #CD7F32); color:#fff;}
+    .rank-silver {background:linear-gradient(90deg, #C0C0C0, #E8E8E8, #C0C0C0); color:#444;}
+    .rank-gold {background:linear-gradient(90deg, #FFD700, #FFF3AC, #FFD700); color:#8B4500;}
+    .rank-platinum {background:linear-gradient(90deg, #E5E4E2, #F5F5F5, #D4D4D4); color:#333;}
+    .rank-diamond {background:linear-gradient(90deg, #00BFFF, #B0E2FF, #00BFFF); color:#004466;}
+    .invite-line {font-size:13px; opacity:0.9;}
+    .invite-code {background:rgba(255,255,255,0.2); padding:1px 8px; border-radius:10px; font-weight:600; display:inline-block; margin-left:6px;}
+
+    /* 数据卡片：4项 */
+    .data-grid {display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin:-16px 16px 16px; position:relative; z-index:1;}
+    .data-card {background:#fff; border-radius:12px; padding:14px 8px; text-align:center; box-shadow:0 2px 8px rgba(0,0,0,0.06); cursor:pointer; transition:transform 0.15s;}
+    .data-card:active {transform:scale(0.97);}
+    .data-val {font-size:18px; font-weight:700; color:var(--primary-end); margin-bottom:4px;}
+    .data-lab {font-size:11px; color:#666;}
+
+    /* 菜单列表 */
+    .menu-section {margin:0 16px 20px; background:#fff; border-radius:12px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.04);}
+    .menu-item {display:flex; align-items:center; padding:14px 16px; border-bottom:1px solid var(--line); cursor:pointer; transition:background 0.15s;}
+    .menu-item:last-child {border-bottom:none;}
+    .menu-item:active {background:#f9f9f9;}
+    .menu-icon {font-size:18px; margin-right:12px;}
+    .menu-name {flex:1; font-size:14px;}
+    .menu-arrow {color:#ccc; font-size:12px;}
+
+    /* 底部导航：我的高亮 */
+    .tab-bar {position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; border-top:1px solid #eee; display:flex; padding:8px 0 10px; z-index:999;}
+    .tab-item {flex:1; text-align:center; font-size:11px; color:#999; text-decoration:none;}
+    .tab-item.active .tab-icon,
+    .tab-item.active div:last-child {color:var(--primary-end);}
+    .tab-icon {font-size:22px; margin-bottom:2px; display:block; color:#999;}
+  </style>
+</head>
+<body>
+
+  <!-- 顶部个人信息 -->
+  <div class="header">
+    <div class="header-top">
+      <a href="mine.html" class="avatar">👤</a>
+      <div class="info-wrap">
+        <div class="uid-line">UID：<span id="uidText">88652310</span></div>
+        <div class="rank-badge rank-bronze" id="rankBadge">🥉 铜牌</div>
+        <div class="invite-line">邀请码：<span class="invite-code" id="inviteText">ALB202688</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 数据卡片：我的订单 / 我的团队 / 邀请人数 / 累计奖励 -->
+  <div class="data-grid">
+    <div class="data-card" onclick="alert('进入我的订单页面')">
+      <div class="data-val">12</div>
+      <div class="data-lab">我的订单</div>
+    </div>
+    <div class="data-card" onclick="alert('进入我的团队页面')">
+      <div class="data-val">5</div>
+      <div class="data-lab">我的团队</div>
+    </div>
+    <div class="data-card" onclick="alert('查看邀请记录')">
+      <div class="data-val">28</div>
+      <div class="data-lab">邀请人数</div>
+    </div>
+    <div class="data-card" onclick="alert('查看奖励明细')">
+      <div class="data-val">$685</div>
+      <div class="data-lab">累计奖励</div>
+    </div>
+  </div>
+
+  <!-- 功能菜单 -->
+  <div class="menu-section">
+    <div class="menu-item" onclick="alert('进入实名认证页面')">
+      <span class="menu-icon">✅</span>
+      <span class="menu-name">实名认证</span>
+      <span class="menu-arrow">›</span>
+    </div>
+    <div class="menu-item" onclick="alert('进入地址管理页面')">
+      <span class="menu-icon">📍</span>
+      <span class="menu-name">地址管理</span>
+      <span class="menu-arrow">›</span>
+    </div>
+    <div class="menu-item" onclick="alert('进入客服中心')">
+      <span class="menu-icon">💬</span>
+      <span class="menu-name">客服中心</span>
+      <span class="menu-arrow">›</span>
+    </div>
+    <div class="menu-item" onclick="alert('进入语言设置页面')">
+      <span class="menu-icon">🌐</span>
+      <span class="menu-name">多语言</span>
+      <span class="menu-arrow">›</span>
+    </div>
+    <div class="menu-item" onclick="alert('进入设置页面')">
+      <span class="menu-icon">⚙️</span>
+      <span class="menu-name">设置</span>
+      <span class="menu-arrow">›</span>
+    </div>
+    <div class="menu-item" onclick="alert('进入关于平台页面')">
+      <span class="menu-icon">ℹ️</span>
+      <span class="menu-name">关于平台</span>
+      <span class="menu-arrow">›</span>
+    </div>
+  </div>
+
+  <!-- 底部导航：我的高亮 -->
+  <div class="tab-bar">
+    <a href="index.html" class="tab-item">
+      <span class="tab-icon">🏠</span>
+      <div>首页</div>
+    </a>
+    <a href="mall.html" class="tab-item">
+      <span class="tab-icon">🛍️</span>
+      <div>商城</div>
+    </a>
+    <a href="task.html" class="tab-item">
+      <span class="tab-icon">📋</span>
+      <div>任务</div>
+    </a>
+    <a href="wallet.html" class="tab-item">
+      <span class="tab-icon">💰</span>
+      <div>钱包</div>
+    </a>
+    <a href="mine.html" class="tab-item active">
+      <span class="tab-icon">👤</span>
+      <div>我的</div>
+    </a>
+  </div>
+
+  <script>
+    // ========== UID与邀请码：每个人不同，直接改下面即可 ==========
+    const USER_UID = '88652310';      // ← 每个人的UID
+    const USER_INVITE = 'ALB202688';  // ← 每个人的邀请码
+    document.getElementById('uidText').textContent = USER_UID;
+    document.getElementById('inviteText').textContent = USER_INVITE;
+
+    // ========== 等级徽章：与首页保持一致，1铜牌 2银牌 3金牌 4白金 5钻石 ==========
+    function setRank(level){
+      const badge = document.getElementById('rankBadge');
+      const configs = {
+        1: {text:'🥉 铜牌', cls:'rank-bronze'},
+        2: {text:'🥈 银牌', cls:'rank-silver'},
+        3: {text:'🥇 金牌', cls:'rank-gold'},
+        4: {text:'💠 白金', cls:'rank-platinum'},
+        5: {text:'💎 钻石', cls:'rank-diamond'}
+      };
+      const cfg = configs[level] || configs[1];
+      badge.className = 'rank-badge ' + cfg.cls;
+      badge.textContent = cfg.text;
+    }
+    // ↓ 等级请与首页保持一致 ↓
+    setRank(1);
+  </script>
+</body>
+</html>
