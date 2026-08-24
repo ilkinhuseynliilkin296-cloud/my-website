@@ -10,10 +10,8 @@
     html, body {background:var(--bg); max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:70px;}
     a {text-decoration:none; color:inherit; display:block;}
 
-    /* 头部：头像左、搜索栏在下 → 互不压 */
+    /* 头部：纯搜索栏，无头像 */
     .header {background:linear-gradient(135deg, #FF6A00, #FF8A00); color:#fff; padding:30px 16px 24px; border-radius:0 0 24px 24px;}
-    .header-top {display:flex; align-items:center; gap:12px; margin-bottom:12px;}
-    .avatar {width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:22px; border:2px solid #fff; flex-shrink:0;}
     .search-bar {background:#fff; border-radius:24px; padding:10px 16px; display:flex; align-items:center; gap:8px;}
     .search-bar input {border:none; outline:none; flex:1; font-size:15px; color:#333;}
 
@@ -31,7 +29,7 @@
     .pro-price {font-size:16px; font-weight:700; color:var(--primary); margin-top:6px;}
     .pro-sales {font-size:11px; color:#aaa; margin-top:4px;}
 
-    /* 底部导航：商城自动高亮 */
+    /* 底部导航：商城高亮 */
     .tab-bar {position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; border-top:1px solid #eee; display:flex; padding:8px 0 10px; z-index:999;}
     .tab-item {flex:1; text-align:center; font-size:11px; color:#999; text-decoration:none;}
     .tab-item.active .tab-icon,
@@ -41,11 +39,8 @@
 </head>
 <body>
 
-  <!-- 头部：头像左对齐，搜索栏完整在下 -->
+  <!-- 头部：纯搜索栏，无头像 -->
   <div class="header">
-    <div class="header-top">
-      <a href="mine.html" class="avatar">👤</a>
-    </div>
     <div class="search-bar">
       <span>🔍</span>
       <input type="text" placeholder="搜索商品、关键词...">
