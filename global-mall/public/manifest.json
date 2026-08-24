@@ -1,0 +1,21 @@
+{
+  "name": "Global Mall",
+  "short_name": "Global Mall",
+  "description": "Global Mall - 跨境电商平台",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FF6B00",
+  "icons": [
+    {
+      "src": "https://picsum.photos/192/192?random=100",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://picsum.photos/512/512?random=101",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
