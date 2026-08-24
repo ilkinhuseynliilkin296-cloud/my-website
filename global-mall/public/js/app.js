@@ -373,4 +373,271 @@ class App {
     }
     
     grid.innerHTML = products.map(p => `
-      <div class="product
+      <div class="product-card" data-id="${p.id}">
+        <img src="${p.image || 'https://picsum.photos/400/400?random=' + p.id}" alt="${p.title}" loading="lazy">
+        <div class="product-card-info">
+          <div class="product-card-title">${p.title}</div>
+          <div class="product-card-price">¥${p.price.toFixed(2)}</div>
+          <div class="product-card-stock">库存: ${p.stock}</div>
+        </div>
+      </div>
+    `).join('');
+    
+    loadMoreBtn.style.display = this.hasMore ? 'inline-block' : 'none';
+    loadMoreBtn.textContent = this.hasMore ? i18n.t('loadMore') || '加载更多' : i18n.t('noMore') || '没有更多了';
+  }
+  
+  // ===== 搜索 =====
+  handleSearch() {
+    const query = document.getElementById('search-input').value.trim();
+    if (query) {
+      this.searchQuery = query;
+      this.currentCategory = '';
+      this.page = 1;
+      this.loadProducts();
+    }
+  }
+  
+  // ===== 商品详情 =====
+  async showDetail(id) {
+    try {
+      const product = await API.getProduct(id);
+      if (product && product.id) {
+        this.currentProduct = product;
+        this.renderDetail(product);
+        this.switchTab('detail');
+        document.getElementById('page-detail').classList.add('active');
+      }
+    } catch (e) {
+      console.error('加载商品详情失败:', e);
+    }
+  }
+  
+  renderDetail(product) {
+    document.getElementById('detail-img').src = product.image || 'https://picsum.photos/400/400?random=' + product.id;
+    document.getElementById('detail-title').textContent = product.title;
+    document.getElementById('detail-price').textContent = `¥${product.price.toFixed(2)}`;
+    document.getElementById('detail-stock').textContent = `库存: ${product.stock}`;
+    document.getElementById('detail-commission').textContent = `佣金: ${(product.commission * 100).toFixed(1)}%`;
+    document.getElementById('detail-desc').textContent = product.description || '暂无描述';
+    document.getElementById('detail-buy').dataset.id = product.id;
+  }
+  
+  // ===== 立即购买 =====
+  async handleBuyNow() {
+    if (!this.currentUser) {
+      alert('请先登录');
+      return;
+    }
+    const product = this.currentProduct;
+    if (!product) return;
+    
+    const quantity = parseInt(prompt('请输入购买数量:', '1')) || 1;
+    if (quantity <= 0) return;
+    
+    if (quantity > product.stock) {
+      alert(`库存不足，当前库存: ${product.stock}`);
+      return;
+    }
+    
+    const address = prompt('请输入收货地址:');
+    if (!address) return;
+    
+    try {
+      const result = await API.createOrder(product.id, quantity, address);
+      if (result.success) {
+        alert(`订单创建成功！\n订单号: ${result.orderNumber}\n金额: ¥${result.amount.toFixed(2)}`);
+        this.switchTab('orders');
+        this.loadOrders();
+      } else {
+        alert(result.error || '下单失败');
+      }
+    } catch (e) {
+      alert('网络错误，请稍后重试');
+    }
+  }
+  
+  // ===== 加载订单 =====
+  async loadOrders(status = 'all') {
+    const list = document.getElementById('order-list');
+    list.innerHTML = '<div class="loading">加载中</div>';
+    
+    try {
+      const orders = await API.getOrders(status === 'all' ? null : status);
+      if (orders && orders.length > 0) {
+        list.innerHTML = orders.map(order => `
+          <div class="order-card">
+            <div class="order-card-header">
+              <span>${order.order_number}</span>
+              <span>${new Date(order.created_at).toLocaleDateString()}</span>
+            </div>
+            <div class="order-card-body">
+              <img src="${order.product_image || 'https://picsum.photos/100/100?random=' + order.product_id}" alt="${order.product_title}">
+              <div class="order-card-info">
+                <div class="order-card-title">${order.product_title}</div>
+                <div class="order-card-meta">数量: ${order.quantity}</div>
+                <div class="order-card-amount">¥${order.amount.toFixed(2)}</div>
+              </div>
+              <div>
+                <span class="order-card-status ${order.status}">${this.getStatusText(order.status)}</span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        list.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">📋</div>
+            <p>暂无订单</p>
+          </div>
+        `;
+      }
+    } catch (e) {
+      list.innerHTML = '<div class="loading">加载失败，请重试</div>';
+    }
+  }
+  
+  getStatusText(status) {
+    const map = {
+      pending: '待付款',
+      paid: '已付款',
+      shipped: '已发货',
+      delivered: '已完成',
+      cancelled: '已取消'
+    };
+    return map[status] || status;
+  }
+  
+  // ===== 加载钱包 =====
+  async loadWallet() {
+    try {
+      const user = await API.getUser();
+      if (user) {
+        document.getElementById('wallet-balance').textContent = `¥${(user.balance || 0).toFixed(2)}`;
+        document.getElementById('wallet-income').textContent = `¥${(user.income || 0).toFixed(2)}`;
+        this.loadEarnings();
+      }
+    } catch (e) {
+      console.error('加载钱包失败:', e);
+    }
+  }
+  
+  // ===== 加载收益记录 =====
+  async loadEarnings() {
+    const container = document.getElementById('earnings-items');
+    try {
+      // 使用订单作为收益记录
+      const orders = await API.getOrders();
+      if (orders && orders.length > 0) {
+        container.innerHTML = orders.map(order => `
+          <div class="earning-item">
+            <div>
+              <div class="earning-desc">${order.product_title} 佣金</div>
+              <div class="earning-date">${new Date(order.created_at).toLocaleDateString()}</div>
+            </div>
+            <div>
+              <div class="earning-amount">+¥${(order.commission || 0).toFixed(2)}</div>
+            </div>
+          </div>
+        `).join('');
+      } else {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">💰</div>
+            <p>暂无收益记录</p>
+          </div>
+        `;
+      }
+    } catch (e) {
+      container.innerHTML = '<div class="loading">加载失败</div>';
+    }
+  }
+  
+  // ===== 更新用户信息 =====
+  async updateUserInfo() {
+    if (!this.currentUser) {
+      try {
+        const user = await API.getUser();
+        if (user) this.currentUser = user;
+      } catch (e) {
+        return;
+      }
+    }
+    
+    if (this.currentUser) {
+      document.getElementById('profile-name').textContent = this.currentUser.nickname || '用户';
+      document.getElementById('profile-phone').textContent = this.currentUser.phone || '';
+      document.getElementById('profile-country').textContent = this.currentUser.country || '中国';
+      document.getElementById('profile-avatar').textContent = this.currentUser.avatar || '👤';
+      
+      // 显示管理员入口
+      const adminEntry = document.getElementById('profile-admin');
+      if (this.currentUser.is_admin) {
+        adminEntry.style.display = 'flex';
+      } else {
+        adminEntry.style.display = 'none';
+      }
+    }
+  }
+  
+  // ===== 轮播图 =====
+  setupBanner() {
+    const track = document.getElementById('banner-track');
+    const dots = document.getElementById('banner-dots');
+    let currentIndex = 0;
+    const items = track.querySelectorAll('.banner-item');
+    const total = items.length;
+    
+    if (total === 0) return;
+    
+    // 创建圆点
+    for (let i = 0; i < total; i++) {
+      const dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      dots.appendChild(dot);
+    }
+    
+    function goTo(index) {
+      currentIndex = (index + total) % total;
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      dots.querySelectorAll('span').forEach((d, i) => {
+        d.classList.toggle('active', i === currentIndex);
+      });
+    }
+    
+    // 自动轮播
+    let interval = setInterval(() => goTo(currentIndex + 1), 3000);
+    
+    // 触摸支持
+    let startX = 0;
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      clearInterval(interval);
+    });
+    track.addEventListener('touchend', (e) => {
+      const endX = e.changedTouches[0].clientX;
+      const diff = startX - endX;
+      if (Math.abs(diff) > 30) {
+        goTo(currentIndex + (diff > 0 ? 1 : -1));
+      }
+      interval = setInterval(() => goTo(currentIndex + 1), 3000);
+    });
+  }
+  
+  // ===== UI 更新 =====
+  updateUI() {
+    // 重新渲染当前页面数据
+    if (this.currentPage === 'home') {
+      this.renderProducts(this.products);
+    } else if (this.currentPage === 'orders') {
+      this.loadOrders();
+    } else if (this.currentPage === 'wallet') {
+      this.loadWallet();
+    }
+  }
+}
+
+// ===== 启动应用 =====
+document.addEventListener('DOMContentLoaded', () => {
+  window.app = new App();
+});
