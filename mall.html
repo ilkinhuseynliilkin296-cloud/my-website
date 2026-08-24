@@ -10,11 +10,12 @@
     html, body {background:var(--bg); max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:70px;}
     a {text-decoration:none; color:inherit; display:block;}
 
-    /* 顶部头部 */
-    .header {background:linear-gradient(135deg, #FF6A00, #FF8A00); color:#fff; padding:30px 16px 20px; border-radius:0 0 24px 24px; position:relative;}
-    .avatar {position:absolute; top:16px; left:16px; width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:22px; border:2px solid #fff;}
-    .search-box {background:#fff; border-radius:24px; padding:10px 16px; display:flex; align-items:center; gap:8px; margin-top:8px;}
-    .search-box input {border:none; outline:none; flex:1; font-size:15px; color:#333;}
+    /* 头部：头像左、搜索栏在下 → 互不压 */
+    .header {background:linear-gradient(135deg, #FF6A00, #FF8A00); color:#fff; padding:30px 16px 24px; border-radius:0 0 24px 24px;}
+    .header-top {display:flex; align-items:center; gap:12px; margin-bottom:12px;}
+    .avatar {width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:22px; border:2px solid #fff; flex-shrink:0;}
+    .search-bar {background:#fff; border-radius:24px; padding:10px 16px; display:flex; align-items:center; gap:8px;}
+    .search-bar input {border:none; outline:none; flex:1; font-size:15px; color:#333;}
 
     /* 分类标签 */
     .tabs {display:flex; padding:12px 8px; gap:8px; overflow-x:auto; background:#fff; margin:12px; border-radius:10px;}
@@ -23,27 +24,29 @@
 
     /* 商品列表 */
     .pro-list {display:grid; grid-template-columns:repeat(2,1fr); gap:12px; padding:0 12px;}
-    .pro-card {background:#fff; border-radius:10px; overflow:hidden; cursor:pointer; transition:transform 0.2s;}
-    .pro-card:active {transform:scale(0.98);}
-    .pro-img {width:100%; aspect-ratio:1; background:linear-gradient(135deg,#f5f5f5,#e8e8e8); display:flex; align-items:center; justify-content:center; font-size:40px; color:#ccc;}
+    .pro-card {background:#fff; border-radius:10px; overflow:hidden; cursor:pointer;}
+    .pro-img {width:100%; aspect-ratio:1; background:linear-gradient(135deg,#f5f5f5,#e8e8e8); display:flex; align-items:center; justify-content:center; font-size:48px; color:#bbb;}
     .pro-info {padding:10px;}
-    .pro-name {font-size:13px; height:36px; line-height:18px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical;}
+    .pro-name {font-size:13px; line-height:18px; height:36px; overflow:hidden; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; color:#333;}
     .pro-price {font-size:16px; font-weight:700; color:var(--primary); margin-top:6px;}
     .pro-sales {font-size:11px; color:#aaa; margin-top:4px;}
 
-    /* 底部导航 */
-    .tab-bar {position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; border-top:1px solid var(--border); display:flex; padding:8px 0 10px; z-index:999;}
-    .tab-item {flex:1; text-align:center; font-size:11px; color:var(--text2);}
-    .tab-item.active {color:var(--primary);}
-    .tab-icon {font-size:22px; margin-bottom:2px;}
+    /* 底部导航：商城自动高亮 */
+    .tab-bar {position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; border-top:1px solid #eee; display:flex; padding:8px 0 10px; z-index:999;}
+    .tab-item {flex:1; text-align:center; font-size:11px; color:#999; text-decoration:none;}
+    .tab-item.active .tab-icon,
+    .tab-item.active div:last-child {color:var(--primary);}
+    .tab-icon {font-size:22px; margin-bottom:2px; display:block; color:#999;}
   </style>
 </head>
 <body>
 
-  <!-- 顶部头部 + 头像 -->
+  <!-- 头部：头像左对齐，搜索栏完整在下 -->
   <div class="header">
-    <a href="mine.html" class="avatar">👤</a>
-    <div class="search-box">
+    <div class="header-top">
+      <a href="mine.html" class="avatar">👤</a>
+    </div>
+    <div class="search-bar">
       <span>🔍</span>
       <input type="text" placeholder="搜索商品、关键词...">
     </div>
@@ -76,35 +79,33 @@
         <div class="pro-sales">成交1890件</div>
       </div>
     </a>
-    <a href="#" class="pro-card">
-      <div class="pro-img">🧥</div>
-      <div class="pro-info">
-        <div class="pro-name">冬季新款羽绒服 90%白鸭绒 男女同款</div>
-        <div class="pro-price">¥256.00</div>
-        <div class="pro-sales">成交3200件</div>
-      </div>
-    </a>
-    <a href="#" class="pro-card">
-      <div class="pro-img">🍯</div>
-      <div class="pro-info">
-        <div class="pro-name">俄罗斯进口天然蜂蜜 1000g无污染</div>
-        <div class="pro-price">¥85.00</div>
-        <div class="pro-sales">成交4200件</div>
-      </div>
-    </a>
   </div>
 
-  <!-- 底部导航 -->
+  <!-- 底部导航：商城高亮 -->
   <div class="tab-bar">
-    <a href="index.html" class="tab-item"><div class="tab-icon">🏠</div><div>首页</div></a>
-    <a href="mall.html" class="tab-item active"><div class="tab-icon">🛍️</div><div>商城</div></a>
-    <a href="task.html" class="tab-item"><div class="tab-icon">📋</div><div>任务</div></a>
-    <a href="wallet.html" class="tab-item"><div class="tab-icon">💰</div><div>钱包</div></a>
-    <a href="mine.html" class="tab-item"><div class="tab-icon">👤</div><div>我的</div></a>
+    <a href="index.html" class="tab-item">
+      <span class="tab-icon">🏠</span>
+      <div>首页</div>
+    </a>
+    <a href="mall.html" class="tab-item active">
+      <span class="tab-icon">🛍️</span>
+      <div>商城</div>
+    </a>
+    <a href="task.html" class="tab-item">
+      <span class="tab-icon">📋</span>
+      <div>任务</div>
+    </a>
+    <a href="wallet.html" class="tab-item">
+      <span class="tab-icon">💰</span>
+      <div>钱包</div>
+    </a>
+    <a href="mine.html" class="tab-item">
+      <span class="tab-icon">👤</span>
+      <div>我的</div>
+    </a>
   </div>
 
   <script>
-    // 分类切换
     function switchTab(el){
       document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
       el.classList.add('active');
