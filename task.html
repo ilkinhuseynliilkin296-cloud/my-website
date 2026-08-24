@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>任务中心 — 全球商家商城</title>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; font-family:"PingFang SC", "Microsoft YaHei", sans-serif; -webkit-tap-highlight-color:transparent;}
+    :root {--primary:#FF6A00; --bg:#F5F5F5; --card:#fff; --text:#333; --text2:#888; --green:#52C41A;}
+    html, body {background:var(--bg); max-width:480px; margin:0 auto; min-height:100vh; padding-bottom:70px;}
+    a {text-decoration:none; color:inherit; display:block;}
+
+    .header {background:linear-gradient(135deg, #FF6A00, #FF8A00); color:#fff; padding:30px 16px 25px; border-radius:0 0 24px 24px; position:relative;}
+    .avatar {position:absolute; top:16px; left:16px; width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:22px; border:2px solid #fff;}
+    .header h1 {font-size:20px; margin-top:8px;}
+
+    .income-card {margin:-20px 16px 16px; background:#fff; border-radius:12px; padding:20px; text-align:center; box-shadow:0 4px 12px rgba(255,106,0,0.12); position:relative; z-index:1;}
+    .income-num {font-size:32px; font-weight:700; color:var(--primary);}
+    .income-desc {font-size:13px; color:#888; margin-top:6px;}
+
+    .section {padding:0 16px; margin-bottom:20px;}
+    .sec-title {font-size:16px; font-weight:600; margin-bottom:12px;}
+    .task-card {background:#fff; border-radius:10px; padding:14px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition:background 0.15s;}
+    .task-card:active {background:#fafafa;}
+    .task-info h3 {font-size:15px; margin-bottom:4px;}
+    .task-info p {font-size:12px; color:#888;}
+    .task-reward {color:var(--primary); font-weight:600; font-size:14px;}
+    .btn-go {background:var(--primary); color:#fff; border:none; padding:6px 12px; border-radius:16px; font-size:13px; margin-left:8px;}
+
+    /* ✅ 底部导航 — 高亮样式加强 */
+    .tab-bar {position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:#fff; border-top:1px solid #eee; display:flex; padding:8px 0 10px; z-index:999;}
+    .tab-item {flex:1; text-align:center; font-size:11px; color:#999; text-decoration:none;}
+    .tab-item.active .tab-icon,
+    .tab-item.active div:last-child {color:var(--primary);}
+    .tab-icon {font-size:22px; margin-bottom:2px; display:block; color:#999;}
+    .tab-item div:last-child {color:#999;}
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <a href="mine.html" class="avatar">👤</a>
+    <h1>📋 任务中心</h1>
+  </div>
+
+  <div class="income-card">
+    <div class="income-num">+$128.50</div>
+    <div class="income-desc">今日任务累计收益 · 昨日 +$256.00</div>
+  </div>
+
+  <div class="section">
+    <h2 class="sec-title">🔥 可接任务</h2>
+    <div class="task-card" onclick="alert('开始浏览商品')">
+      <div class="task-info"><h3>浏览商品赚佣金</h3><p>浏览任意商品10秒即可完成</p></div>
+      <div><span class="task-reward">+$0.5</span><button class="btn-go">去做</button></div>
+    </div>
+    <div class="task-card" onclick="alert('打开分享页面')">
+      <div class="task-info"><h3>分享给好友</h3><p>邀请好友注册并下单</p></div>
+      <div><span class="task-reward">+$5.0</span><button class="btn-go">去做</button></div>
+    </div>
+    <div class="task-card" onclick="alert('进入商城下单')">
+      <div class="task-info"><h3>完成一笔采购</h3><p>下单并确认收货</p></div>
+      <div><span class="task-reward">+$10.0</span><button class="btn-go">去做</button></div>
+    </div>
+  </div>
+
+  <!-- ✅ 当前页：任务 → 第三个标签加 active -->
+  <div class="tab-bar">
+    <a href="index.html" class="tab-item">
+      <span class="tab-icon">🏠</span>
+      <div>首页</div>
+    </a>
+    <a href="mall.html" class="tab-item">
+      <span class="tab-icon">🛍️</span>
+      <div>商城</div>
+    </a>
+    <a href="task.html" class="tab-item active">
+      <span class="tab-icon">📋</span>
+      <div>任务</div>
+    </a>
+    <a href="wallet.html" class="tab-item">
+      <span class="tab-icon">💰</span>
+      <div>钱包</div>
+    </a>
+    <a href="mine.html" class="tab-item">
+      <span class="tab-icon">👤</span>
+      <div>我的</div>
+    </a>
+  </div>
+
+</body>
+</html>
