@@ -2,186 +2,324 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <!-- 关键：开启手机端完美适配 -->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>全球商城 · 电商任务平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全球商家商城平台 — 买全球 · 卖全球</title>
   <style>
-    * {margin:0; padding:0; box-sizing:border-box; font-family:system-ui, -apple-system, sans-serif;}
-    body {
-      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-      color: white;
-      min-height: 100vh;
-    }
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 1rem 1.2rem;
-      background: rgba(0,0,0,0.15);
-      flex-wrap: wrap;
-      gap: 0.8rem;
-    }
-    .logo {font-size: 1.15rem; font-weight: 700;}
-    .header-actions {
-      display: flex;
-      gap: 0.6rem;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    select {
-      padding: 0.4rem 0.6rem;
-      border-radius: 6px;
-      border: none;
-      background: white;
-      color: #1e3a8a;
-      font-weight: 500;
-      cursor: pointer;
-      font-size: 0.95rem;
-    }
-    .btn {
-      padding: 0.5rem 1rem;
-      border-radius: 6px;
-      border: none;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.95rem;
-      white-space: nowrap;
-    }
-    .btn-login {background: white; color: #1e3a8a;}
-    .btn-register {background: #facc15; color: #1e3a8a;}
-    .hero {padding: 2rem 1rem; text-align: center;}
-    .hero h1 {
-      font-size: clamp(1.6rem, 5vw, 2.5rem);
-      margin-bottom: 0.8rem;
-    }
-    .hero p {
-      font-size: 1rem;
-      opacity: 0.9;
-      margin-bottom: 2rem;
-      padding: 0 0.5rem;
-    }
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
-    .stat-card {
-      background: rgba(255,255,255,0.2);
-      padding: 1.2rem 1.5rem;
-      border-radius: 12px;
-      backdrop-filter: blur(8px);
-      min-width: 140px;
-      flex: 1;
-      max-width: 220px;
-    }
-    .stat-label {font-size: 0.9rem; opacity: 0.8; margin-bottom: 0.4rem;}
-    .stat-value {font-size: clamp(1.4rem, 4vw, 2rem); font-weight: 700;}
-    .section {padding: 1.5rem 1rem;}
-    .section h2 {text-align: center; margin-bottom: 1.5rem; font-size: 1.3rem;}
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-      gap: 0.8rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .grid-item {
-      background: rgba(255,255,255,0.15);
-      padding: 1rem;
-      border-radius: 10px;
-      text-align: center;
-      font-weight: 500;
-      font-size: 0.95rem;
-    }
-    .grid-2 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 0.8rem;
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-    .grid-item-2 {
-      background: rgba(255,255,255,0.12);
-      padding: 0.9rem;
-      border-radius: 8px;
-      text-align: center;
-      font-size: 0.9rem;
-    }
-    .contact {
-      padding: 1.5rem 1rem;
-      text-align: center;
-      background: rgba(0,0,0,0.15);
-    }
-    .contact-links {
-      margin-top: 1rem;
-      display: flex;
-      justify-content: center;
-      gap: 1.2rem;
-      flex-wrap: wrap;
-      font-size: 0.95rem;
-    }
-    a {text-decoration: none;}
+    * {margin:0; padding:0; box-sizing:border-box; font-family:"Microsoft YaHei", "PingFang SC", system-ui, sans-serif;}
+    :root {--primary:#FF6A00; --white:#fff; --gray:#F5F5F5; --dark:#333; --border:#eee; --success:#52C41A; --warning:#FAAD14; --danger:#FF4D4F;}
+    body {background:#fff; color:var(--dark);}
+    a {text-decoration:none; color:inherit;}
+    button {cursor:pointer; border:none; border-radius:4px; font-size:14px;}
+    .btn {padding:8px 16px; border-radius:4px; font-weight:500; transition:all 0.2s;}
+    .btn-primary {background:var(--primary); color:#fff;}
+    .btn-primary:hover {background:#E65F00;}
+    .btn-outline {border:1px solid var(--primary); color:var(--primary); background:#fff;}
+    .btn-outline:hover {background:#FFF5EB;}
+    .card {background:#fff; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.06); border:1px solid var(--border);}
+    .container {max-width:1280px; margin:0 auto; padding:0 16px;}
+
+    /* 顶部导航 */
+    .top-bar {background:#f8f8f8; font-size:13px; padding:8px 0; border-bottom:1px solid #eee;}
+    .top-bar-content {display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+    .top-bar-left span {margin-right:20px; color:#666;}
+    .top-bar-right a {margin-left:16px; color:#666;}
+    .top-bar-right a:hover {color:var(--primary);}
+
+    /* 主导航 */
+    .header {padding:16px 0; border-bottom:1px solid #eee; position:sticky; top:0; background:#fff; z-index:99;}
+    .header-content {display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+    .logo {font-size:28px; font-weight:800; color:var(--primary); letter-spacing:-0.5px;}
+    .search-box {display:flex; flex:1; max-width:560px; border:2px solid var(--primary); border-radius:24px; overflow:hidden;}
+    .search-box input {flex:1; padding:10px 20px; border:none; outline:none; font-size:15px;}
+    .search-box button {background:var(--primary); color:#fff; padding:10px 24px; font-size:15px; border-radius:0;}
+    .header-actions {display:flex; gap:10px; align-items:center;}
+    .lang-select {padding:6px 10px; border:1px solid #ddd; border-radius:4px; cursor:pointer;}
+
+    /* 分类导航 + 横幅 */
+    .banner-section {padding:16px 0;}
+    .banner-row {display:flex; gap:16px; flex-wrap:wrap;}
+    .category-menu {width:220px; background:var(--gray); border-radius:8px; padding:12px 0; flex-shrink:0;}
+    .category-item {padding:10px 20px; cursor:pointer; font-size:14px; transition:all 0.2s;}
+    .category-item:hover {background:#fff; color:var(--primary); font-weight:500;}
+    .banner {flex:1; min-height:260px; background:linear-gradient(90deg, #FF6A00, #FF9500); border-radius:8px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:32px; font-weight:700; text-align:center; padding:20px;}
+
+    /* 滚动公告 */
+    .notice {background:#FFF7E8; padding:10px 20px; border-radius:4px; margin:16px 0; overflow:hidden;}
+    .notice-text {color:#8B4500; font-size:14px; white-space:nowrap; animation:scroll 20s linear infinite;}
+    @keyframes scroll {from{transform:translateX(100%);} to{transform:translateX(-100%);}}
+
+    /* 板块标题 */
+    .section-title {font-size:20px; font-weight:700; margin:32px 0 16px; display:flex; align-items:center; gap:8px;}
+    .section-title::before {content:""; width:4px; height:20px; background:var(--primary); display:inline-block; border-radius:2px;}
+
+    /* 商品网格 */
+    .products-grid {display:grid; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); gap:16px;}
+    .product-card {border-radius:8px; overflow:hidden; cursor:pointer; transition:transform 0.2s, box-shadow 0.2s;}
+    .product-card:hover {transform:translateY(-3px); box-shadow:0 8px 20px rgba(255,106,0,0.15);}
+    .product-img {width:100%; height:160px; background:linear-gradient(135deg,#f5f5f5,#e0e0e0); display:flex; align-items:center; justify-content:center; font-size:40px; color:#ccc;}
+    .product-info {padding:12px;}
+    .product-name {font-size:14px; line-height:1.5; height:42px; overflow:hidden; margin-bottom:8px;}
+    .product-price {font-size:20px; font-weight:700; color:var(--primary);}
+    .product-meta {font-size:12px; color:#999; margin-top:6px; display:flex; justify-content:space-between;}
+
+    /* 平台优势 */
+    .features-grid {display:grid; grid-template-columns:repeat(6,1fr); gap:16px; margin:32px 0;}
+    @media(max-width:900px){.features-grid{grid-template-columns:repeat(3,1fr);}}
+    @media(max-width:480px){.features-grid{grid-template-columns:repeat(2,1fr);}}
+    .feature-card {text-align:center; padding:24px 12px;}
+    .feature-icon {font-size:32px; margin-bottom:8px;}
+    .feature-name {font-weight:500;}
+
+    /* 国家展示 */
+    .countries-grid {display:grid; grid-template-columns:repeat(auto-fill, minmax(100px, 1fr)); gap:12px; margin:16px 0;}
+    .country-card {text-align:center; padding:12px 8px; border-radius:6px; background:var(--gray);}
+    .country-flag {font-size:24px; margin-bottom:4px;}
+    .country-name {font-size:13px;}
+
+    /* 排行榜 */
+    .rank-item {display:flex; align-items:center; padding:10px 0; border-bottom:1px solid #f5f5f5; gap:10px;}
+    .rank-num {width:24px; height:24px; line-height:24px; text-align:center; border-radius:50%; background:var(--primary); color:#fff; font-size:12px; font-weight:700;}
+    .rank-item:nth-child(2) .rank-num {background:#FAAD14;}
+    .rank-item:nth-child(3) .rank-num {background:#52C41A;}
+    .rank-name {flex:1; font-size:14px;}
+    .rank-value {font-weight:600; color:var(--primary);}
+
+    /* 底部 */
+    footer {background:#2A2A2A; color:#ccc; padding:40px 0 20px; margin-top:60px;}
+    .footer-grid {display:grid; grid-template-columns:repeat(4,1fr); gap:30px;}
+    @media(max-width:768px){.footer-grid{grid-template-columns:repeat(2,1fr);}}
+    .footer-col h3 {color:#fff; font-size:16px; margin-bottom:16px;}
+    .footer-col a {display:block; color:#aaa; font-size:14px; margin-bottom:8px;}
+    .footer-col a:hover {color:var(--primary);}
+    .copyright {text-align:center; padding-top:20px; margin-top:20px; border-top:1px solid #444; font-size:13px; color:#888;}
+
+    /* 隐藏多语言 */
+    [data-lang="ru"] {display:none;}
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">🌐 全球电商平台</div>
-    <div class="header-actions">
-      <select id="lang">
-        <option value="zh">🇨🇳 中文</option>
-        <option value="ru">🇷🇺 Русский</option>
-      </select>
-      <a href="/login" style="text-decoration:none;"><button class="btn btn-login">登录账户</button></a>
-      <a href="/register" style="text-decoration:none;"><button class="btn btn-register">立即注册</button></a>
+
+  <!-- 顶部快捷栏 -->
+  <div class="top-bar">
+    <div class="container top-bar-content">
+      <div class="top-bar-left">
+        <span data-lang="zh">🌐 覆盖全球 200+ 国家 | 正品保障 | 全球物流 | 售后无忧</span>
+        <span data-lang="ru">🌐 200+ стран | Гарантия | Доставка | Поддержка</span>
+      </div>
+      <div class="top-bar-right">
+        <a href="login.html" id="link-login">登录</a>
+        <a href="register.html" id="link-register">免费注册</a>
+        <a href="merchant/index.html" target="_blank">商家入驻</a>
+        <a href="admin/index.html" target="_blank">管理后台</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主头部 -->
+  <header class="header">
+    <div class="container header-content">
+      <div class="logo">GLOBAL-MALL</div>
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="搜索商品、供应商、关键词...">
+        <button id="search-btn">🔍</button>
+      </div>
+      <div class="header-actions">
+        <select class="lang-select" id="lang-switch">
+          <option value="zh">🇨🇳 中文</option>
+          <option value="ru">🇷🇺 Русский</option>
+          <option value="en">🇺🇸 English</option>
+        </select>
+        <a href="orders.html" class="btn btn-outline">我的订单</a>
+        <a href="wallet.html" class="btn btn-primary">💰 钱包</a>
+      </div>
     </div>
   </header>
 
-  <section class="hero">
-    <h1>全球商城 · 电商任务平台</h1>
-    <p>商品 · 订单 · 佣金 · 提现 · 一站式全球电商任务系统</p>
-    <div class="stats">
-      <div class="stat-card">
-        <div class="stat-label">今日收益</div>
-        <div class="stat-value">$1,258.68</div>
+  <main class="container">
+    <!-- 分类导航 + 横幅 -->
+    <section class="banner-section">
+      <div class="banner-row">
+        <div class="category-menu">
+          <div class="category-item" onclick="goProducts('all')">📦 全部商品</div>
+          <div class="category-item" onclick="goProducts('electronics')">📱 数码电子</div>
+          <div class="category-item" onclick="goProducts('clothing')">👗 服装服饰</div>
+          <div class="category-item" onclick="goProducts('home')">🏠 家居用品</div>
+          <div class="category-item" onclick="goProducts('food')">🍜 食品生鲜</div>
+          <div class="category-item" onclick="goProducts('machinery')">⚙️ 机械设备</div>
+          <div class="category-item" onclick="goProducts('chemical')">🧪 化工原料</div>
+          <div class="category-item" onclick="goProducts('auto')">🚗 汽摩配件</div>
+        </div>
+        <div class="banner">
+          <div>
+            <div>全球采购 · 源头好货</div>
+            <div style="font-size:16px; margin-top:12px; font-weight:400;">源头工厂 · 一站直达 · 安全交易</div>
+          </div>
+        </div>
       </div>
-      <div class="stat-card">
-        <div class="stat-label">累计佣金</div>
-        <div class="stat-value">$45,892.35</div>
+    </section>
+
+    <!-- 滚动公告 -->
+    <div class="notice">
+      <div class="notice-text">
+        ✅ 实时成交：俄罗斯采购商下单 ¥128,500 | ✅ 新入驻商家：义乌小商品旗舰店 | ✅ 平台佣金低至 1% | ✅ 今日新上线商品 3,256 件 | ✅ 支持多语言/多币种/全球物流
       </div>
     </div>
-  </section>
 
-  <section class="section" style="background:rgba(255,255,255,0.08);">
-    <h2>核心功能</h2>
-    <div class="grid">
-      <div class="grid-item">✅ 商品浏览</div>
-      <div class="grid-item">✅ 一键接单</div>
-      <div class="grid-item">✅ 实时佣金</div>
-      <div class="grid-item">✅ 每日收益</div>
+    <!-- 热门商品 -->
+    <h2 class="section-title">🔥 热门商品推荐</h2>
+    <div class="products-grid" id="hot-products">
+      <!-- JS 动态生成 -->
     </div>
-  </section>
 
-  <section class="section">
-    <h2>平台优势</h2>
-    <div class="grid-2">
-      <div class="grid-item-2">⭐ 覆盖 200+ 国家</div>
-      <div class="grid-item-2">⭐ 全球商家合作</div>
-      <div class="grid-item-2">⭐ 安全资金系统</div>
-      <div class="grid-item-2">⭐ 24 小时客服</div>
-      <div class="grid-item-2">⭐ 快速提现</div>
-      <div class="grid-item-2">⭐ 智能订单匹配</div>
+    <!-- 全球国家 -->
+    <h2 class="section-title">🌍 覆盖全球市场</h2>
+    <div class="countries-grid">
+      <div class="country-card"><div class="country-flag">🇨🇳</div><div class="country-name">中国</div></div>
+      <div class="country-card"><div class="country-flag">🇷🇺</div><div class="country-name">俄罗斯</div></div>
+      <div class="country-card"><div class="country-flag">🇰🇿</div><div class="country-name">哈萨克斯坦</div></div>
+      <div class="country-card"><div class="country-flag">🇺🇸</div><div class="country-name">美国</div></div>
+      <div class="country-card"><div class="country-flag">🇪🇺</div><div class="country-name">欧盟</div></div>
+      <div class="country-card"><div class="country-flag">🇯🇵</div><div class="country-name">日本</div></div>
+      <div class="country-card"><div class="country-flag">🇰🇷</div><div class="country-name">韩国</div></div>
+      <div class="country-card"><div class="country-flag">🇸🇬</div><div class="country-name">新加坡</div></div>
+      <div class="country-card"><div class="country-flag">🇦🇪</div><div class="country-name">阿联酋</div></div>
+      <div class="country-card"><div class="country-flag">🇧🇷</div><div class="country-name">巴西</div></div>
+      <div class="country-card"><div class="country-flag">🇦🇺</div><div class="country-name">澳大利亚</div></div>
+      <div class="country-card"><div class="country-flag">🇨🇦</div><div class="country-name">加拿大</div></div>
     </div>
-  </section>
 
-  <section class="contact">
-    <h2>联系我们</h2>
-    <div class="contact-links">
-      <span>📩 Telegram</span>
-      <span>💬 WhatsApp</span>
-      <span>📧 support@example.com</span>
+    <!-- 平台优势 -->
+    <h2 class="section-title">💎 平台核心优势</h2>
+    <div class="features-grid card">
+      <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-name">源头直供</div></div>
+      <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-name">严选商家</div></div>
+      <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-name">担保交易</div></div>
+      <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-name">全球物流</div></div>
+      <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-name">极速提现</div></div>
+      <div class="feature-card"><div class="feature-icon">✅</div><div class="feature-name">售后保障</div></div>
     </div>
-  </section>
+
+    <!-- 收益排行榜 + FAQ -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:32px;">
+      <div class="card" style="padding:20px;">
+        <h3 style="margin-bottom:16px; font-size:16px;">🏆 用户收益排行榜</h3>
+        <div id="rank-list">
+          <div class="rank-item"><span class="rank-num">1</span><span class="rank-name">俄罗斯采购商-Alex</span><span class="rank-value">$45,892</span></div>
+          <div class="rank-item"><span class="rank-num">2</span><span class="rank-name">哈萨克斯坦-阿里木</span><span class="rank-value">$32,450</span></div>
+          <div class="rank-item"><span class="rank-num">3</span><span class="rank-name">义乌商家-张总</span><span class="rank-value">$28,600</span></div>
+          <div class="rank-item"><span class="rank-num">4</span><span class="rank-name">深圳电子-李经理</span><span class="rank-value">$22,150</span></div>
+          <div class="rank-item"><span class="rank-num">5</span><span class="rank-name">迪拜贸易-Mohammad</span><span class="rank-value">$18,900</span></div>
+        </div>
+      </div>
+      <div class="card" style="padding:20px;">
+        <h3 style="margin-bottom:16px; font-size:16px;">❓ 常见问题 FAQ</h3>
+        <div style="line-height:2;">
+          <div><b>Q：如何下单？</b> → 注册→浏览商品→立即购买→付款→发货</div>
+          <div><b>Q：佣金怎么算？</b> → 平台抽成 1%，邀请好友额外奖励 0.5%</div>
+          <div><b>Q：多久可以提现？</b> → 订单完成 7 天即可申请，24小时内到账</div>
+          <div><b>Q：支持哪些国家？</b> → 全球 200+ 国家，支持多币种结算</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- 底部 -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h3>采购服务</h3>
+          <a href="#">商品搜索</a>
+          <a href="#">发布采购</a>
+          <a href="#">在线下单</a>
+          <a href="#">订单追踪</a>
+        </div>
+        <div class="footer-col">
+          <h3>商家服务</h3>
+          <a href="merchant/index.html">商家入驻</a>
+          <a href="merchant/products.html">商品管理</a>
+          <a href="merchant/orders.html">订单处理</a>
+          <a href="merchant/wallet.html">资金结算</a>
+        </div>
+        <div class="footer-col">
+          <h3>关于平台</h3>
+          <a href="#">平台介绍</a>
+          <a href="#">规则中心</a>
+          <a href="#">费率说明</a>
+          <a href="#">商家审核</a>
+        </div>
+        <div class="footer-col">
+          <h3>联系我们</h3>
+          <a href="#">📩 Telegram: @globalsupport</a>
+          <a href="#">💬 WhatsApp: +86 xxx</a>
+          <a href="#">📧 support@global-mall.com</a>
+          <a href="#">🕐 24小时在线客服</a>
+        </div>
+      </div>
+      <div class="copyright">© 2026 Global-Mall 全球商家商城平台 | 安全 · 高效 · 全球化 | 备案号：待补充</div>
+    </div>
+  </footer>
+
+  <script>
+    // ========== 模拟商品数据 ==========
+    const products = [
+      {id:1, name:"高端无线蓝牙耳机 降噪续航50小时", price:128.50, sales:2580, img:"🎧"},
+      {id:2, name:"智能手机全面屏 8GB+256GB 正品行货", price:499.00, sales:1890, img:"📱"},
+      {id:3, name:"冬季新款羽绒服 90%白鸭绒 男女同款", price:256.00, sales:3200, img:"🧥"},
+      {id:4, name:"北欧风实木餐桌椅组合 家用简约", price:688.00, sales:956, img:"🪑"},
+      {id:5, name:"全自动智能扫地机器人 激光导航", price:899.00, sales:680, img:"🤖"},
+      {id:6, name:"进口零食大礼包 20国风味组合装", price:68.00, sales:5600, img:"🍫"},
+      {id:7, name:"工业级伺服电机 高精度低噪音", price:1250.00, sales:128, img:"⚙️"},
+      {id:8, name:"汽车轮胎 静音耐磨 四季通用", price:320.00, sales:1450, img:"🚗"},
+    ];
+
+    // ========== 渲染商品 ==========
+    const container = document.getElementById('hot-products');
+    products.forEach(p => {
+      const card = document.createElement('div');
+      card.className = 'card product-card';
+      card.onclick = () => window.location.href = `product-detail.html?id=${p.id}`;
+      card.innerHTML = `
+        <div class="product-img">${p.img}</div>
+        <div class="product-info">
+          <div class="product-name">${p.name}</div>
+          <div class="product-price">¥${p.price.toFixed(2)}</div>
+          <div class="product-meta">
+            <span>成交 ${p.sales} 件</span>
+            <span>包邮</span>
+          </div>
+        </div>
+      `;
+      container.appendChild(card);
+    });
+
+    // ========== 搜索跳转 ==========
+    document.getElementById('search-btn').onclick = () => {
+      const kw = document.getElementById('search-input').value.trim();
+      window.location.href = `products.html?search=${encodeURIComponent(kw)}`;
+    };
+    document.getElementById('search-input').onkeydown = e => {
+      if(e.key==='Enter') document.getElementById('search-btn').click();
+    };
+
+    // ========== 分类跳转 ==========
+    window.goProducts = (cat) => {
+      window.location.href = `products.html?category=${cat}`;
+    };
+
+    // ========== 多语言切换 ==========
+    document.getElementById('lang-switch').onchange = e => {
+      const lang = e.target.value;
+      document.querySelectorAll('[data-lang]').forEach(el => {
+        el.style.display = el.dataset.lang === lang ? 'block' : 'none';
+      });
+      localStorage.setItem('prefer_lang', lang);
+    };
+    const savedLang = localStorage.getItem('prefer_lang');
+    if(savedLang) {
+      document.getElementById('lang-switch').value = savedLang;
+      document.getElementById('lang-switch').dispatchEvent(new Event('change'));
+    }
+  </script>
 </body>
 </html>
